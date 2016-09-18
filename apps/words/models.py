@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
-from .validators import validate_jap_char, validate_eng_char
+from .validators import validate_jap_char, validate_eng_char, validate_hiragana_char, validate_katakana_char
 
 
 class EnglishWord(models.Model):
@@ -59,9 +59,9 @@ class Reading(models.Model):
         (3, _('Katakana')),
     )
 
-    romaji = models.CharField(_('Romaji Reading'), max_length=100, blank=True)
-    hiragana = models.CharField(_('Hiragana Reading'), max_length=50, blank=True)
-    katakana = models.CharField(_('Katakana Reading'), max_length=50, blank=True)
+    romaji = models.CharField(_('Romaji Reading'), max_length=100, blank=True, validators=[validate_eng_char])
+    hiragana = models.CharField(_('Hiragana Reading'), max_length=50, blank=True, validators=[validate_hiragana_char])
+    katakana = models.CharField(_('Katakana Reading'), max_length=50, blank=True, validators=[validate_katakana_char])
     default_display = models.IntegerField(_('Default Display'), choices=CHOICES,
                                           default=settings.READINGS_DEFAULT_DISPLAY)
 
