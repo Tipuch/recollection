@@ -1,0 +1,2 @@
+class SyllableNotFoundError(Exception):
+    pass

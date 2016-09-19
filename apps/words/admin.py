@@ -38,3 +38,8 @@ class KanjiAdmin(admin.ModelAdmin):
 @admin.register(Reading)
 class ReadingAdmin(admin.ModelAdmin):
     list_display = ('romaji', 'hiragana', 'katakana')
+
+
+@admin.register(JapaneseSyllable)
+class JapaneseSyllableAdmin(admin.ModelAdmin):
+    list_display = ('romaji', 'hiragana', 'katakana')

@@ -1,8 +1,13 @@
+import logging
 from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 from .validators import validate_jap_char, validate_eng_char, validate_hiragana_char, validate_katakana_char
+from .managers import JapaneseSyllableManager
+from .exceptions import SyllableNotFoundError
+
+logger = logging.getLogger(__name__)
 
 
 class EnglishWord(models.Model):
@@ -76,4 +81,83 @@ class Reading(models.Model):
     def save(self, *args, **kwargs):
         if self.romaji:
             self.romaji = self.romaji.lower()
+        self.convert_reading()
         super(Reading, self).save(*args, **kwargs)
+
+    def convert_reading(self):
+        syllables = []
+        try:
+            if self.romaji:
+                syllables = self.convert_from_romaji()
+            elif self.hiragana:
+                syllables = self.convert_from_hiragana()
+            elif self.katakana:
+                syllables = self.convert_from_katakana()
+        except SyllableNotFoundError as e:
+            logger.warning(e)
+        else:
+            self.hiragana = ""
+            self.katakana = ""
+            self.romaji = ""
+            for syllable in syllables:
+                self.hiragana += syllable.hiragana
+                self.katakana += syllable.katakana
+                self.romaji += syllable.romaji
+
+    def convert_from_romaji(self):
+        syllables = []
+        lookup_method = JapaneseSyllable.objects.lookup_romaji
+        step = 3
+        i = 0
+        while i < len(self.romaji):
+            # look for syllables in next substring (step chars or less)
+            next_substring = self.romaji[i:i+step] if i + step <= len(self.romaji) - 1 else self.romaji[i:]
+            syllable = JapaneseSyllable.objects.lookup_syllable(lookup_method, next_substring)
+            if not syllable:
+                raise SyllableNotFoundError("Syllable not found in '{0}'".format(next_substring))
+            else:
+                syllables.append(syllable)
+            i += len(syllable.romaji)
+        return syllables
+
+    def convert_from_hiragana(self):
+        syllables = []
+        lookup_method = JapaneseSyllable.objects.lookup_hiragana
+        step = 2
+        i = 0
+        while i < len(self.hiragana):
+            # look for syllables in next substring (step chars or less)
+            next_substring = self.hiragana[i:i+step] if i + step <= len(self.hiragana) - 1 else self.hiragana[i:]
+            syllable = JapaneseSyllable.objects.lookup_syllable(lookup_method, next_substring)
+            if not syllable:
+                raise SyllableNotFoundError("Syllable not found in '{0}'".format(next_substring))
+            else:
+                syllables.append(syllable)
+            i += len(syllable.hiragana)
+        return syllables
+
+    def convert_from_katakana(self):
+        syllables = []
+        lookup_method = JapaneseSyllable.objects.lookup_katakana
+        step = 2
+        i = 0
+        while i < len(self.katakana):
+            # look for syllables in next substring (step chars or less)
+            next_substring = self.katakana[i:i+step] if i + step <= len(self.katakana) - 1 else self.katakana[i:]
+            syllable = JapaneseSyllable.objects.lookup_syllable(lookup_method, next_substring)
+            if not syllable:
+                raise SyllableNotFoundError("Syllable not found in '{0}'".format(next_substring))
+            else:
+                syllables.append(syllable)
+            i += len(syllable.katakana)
+        return syllables
+
+
+class JapaneseSyllable(models.Model):
+    romaji = models.CharField(_('Romaji'), max_length=3, validators=[validate_eng_char], db_index=True)
+    hiragana = models.CharField(_('Hiragana'), max_length=2, validators=[validate_hiragana_char], db_index=True)
+    katakana = models.CharField(_('Katakana'), max_length=2, validators=[validate_katakana_char], db_index=True)
+    objects = JapaneseSyllableManager()
+
+    def __str__(self):
+        return self.romaji
