@@ -99,6 +99,7 @@ class Reading(models.Model):
             self.hiragana = ""
             self.katakana = ""
             self.romaji = ""
+            self.replace_double_vowels(syllables)
             for syllable in syllables:
                 self.hiragana += syllable.hiragana
                 self.katakana += syllable.katakana
@@ -152,9 +153,19 @@ class Reading(models.Model):
             i += len(syllable.katakana)
         return syllables
 
+    @staticmethod
+    def replace_double_vowels(syllables):
+        VOWELS = ('a', 'e', 'i', 'o', 'u', 'y')
+        for index, current in enumerate(syllables):
+            if index > 0:
+                previous = syllables[index - 1]
+                if current.romaji in VOWELS and previous.romaji[len(previous.romaji)-1] == current.romaji:
+                    current.hiragana = '\u30fc'
+                    current.katakana = '\u30fc'
+
 
 class JapaneseSyllable(models.Model):
-    romaji = models.CharField(_('Romaji'), max_length=3, validators=[validate_eng_char], db_index=True)
+    romaji = models.CharField(_('Romaji'), max_length=3, validators=[validate_eng_char], db_index=True, unique=True)
     hiragana = models.CharField(_('Hiragana'), max_length=2, validators=[validate_hiragana_char], db_index=True)
     katakana = models.CharField(_('Katakana'), max_length=2, validators=[validate_katakana_char], db_index=True)
     objects = JapaneseSyllableManager()

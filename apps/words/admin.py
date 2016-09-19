@@ -43,3 +43,4 @@ class ReadingAdmin(admin.ModelAdmin):
 @admin.register(JapaneseSyllable)
 class JapaneseSyllableAdmin(admin.ModelAdmin):
     list_display = ('romaji', 'hiragana', 'katakana')
+    ordering = 'hiragana',
