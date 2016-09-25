@@ -1,0 +1,308 @@
+[
+{
+    "model": "words.japanesesyllable",
+    "pk": 1,
+    "fields": {
+        "romaji": "ni",
+        "hiragana": "\u306b",
+        "katakana": "\u30cb"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 2,
+    "fields": {
+        "romaji": "n",
+        "hiragana": "\u3093",
+        "katakana": "\u30f3"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 3,
+    "fields": {
+        "romaji": "ge",
+        "hiragana": "\u3052",
+        "katakana": "\u30b2"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 4,
+    "fields": {
+        "romaji": "t",
+        "hiragana": "\u3063",
+        "katakana": "\u30c3"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 5,
+    "fields": {
+        "romaji": "k",
+        "hiragana": "\u3063",
+        "katakana": "\u30c3"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 6,
+    "fields": {
+        "romaji": "a",
+        "hiragana": "\u3042",
+        "katakana": "\u30a2"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 7,
+    "fields": {
+        "romaji": "e",
+        "hiragana": "\u3048",
+        "katakana": "\u30a8"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 8,
+    "fields": {
+        "romaji": "i",
+        "hiragana": "\u3044",
+        "katakana": "\u30a4"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 9,
+    "fields": {
+        "romaji": "o",
+        "hiragana": "\u304a",
+        "katakana": "\u30aa"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 10,
+    "fields": {
+        "romaji": "u",
+        "hiragana": "\u3046",
+        "katakana": "\u30a6"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 11,
+    "fields": {
+        "romaji": "ka",
+        "hiragana": "\u304b",
+        "katakana": "\u30ab"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 12,
+    "fields": {
+        "romaji": "ki",
+        "hiragana": "\u304d",
+        "katakana": "\u30ad"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 13,
+    "fields": {
+        "romaji": "ku",
+        "hiragana": "\u304f",
+        "katakana": "\u30af"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 14,
+    "fields": {
+        "romaji": "ke",
+        "hiragana": "\u3051",
+        "katakana": "\u30b1"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 15,
+    "fields": {
+        "romaji": "ko",
+        "hiragana": "\u3053",
+        "katakana": "\u30b3"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 16,
+    "fields": {
+        "romaji": "wa",
+        "hiragana": "\u308f",
+        "katakana": "\u30ef"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 17,
+    "fields": {
+        "romaji": "ta",
+        "hiragana": "\u305f",
+        "katakana": "\u30bf"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 18,
+    "fields": {
+        "romaji": "nya",
+        "hiragana": "\u306b\u3083",
+        "katakana": "\u30cb\u30e3"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 19,
+    "fields": {
+        "romaji": "be",
+        "hiragana": "\u3079",
+        "katakana": "\u30d9"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 20,
+    "fields": {
+        "romaji": "ru",
+        "hiragana": "\u308b",
+        "katakana": "\u30eb"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 21,
+    "fields": {
+        "romaji": "shi",
+        "hiragana": "\u3057",
+        "katakana": "\u30b7"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 22,
+    "fields": {
+        "romaji": "ha",
+        "hiragana": "\u306f",
+        "katakana": "\u30cf"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 23,
+    "fields": {
+        "romaji": "ho",
+        "hiragana": "\u307b",
+        "katakana": "\u30db"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 24,
+    "fields": {
+        "romaji": "ro",
+        "hiragana": "\u308d",
+        "katakana": "\u30ed"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 25,
+    "fields": {
+        "romaji": "ga",
+        "hiragana": "\u304c",
+        "katakana": "\u30ac"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 26,
+    "fields": {
+        "romaji": "gi",
+        "hiragana": "\u304e",
+        "katakana": "\u30ae"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 27,
+    "fields": {
+        "romaji": "sa",
+        "hiragana": "\u3055",
+        "katakana": "\u30b5"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 28,
+    "fields": {
+        "romaji": "he",
+        "hiragana": "\u3078",
+        "katakana": "\u30d8"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 29,
+    "fields": {
+        "romaji": "ra",
+        "hiragana": "\u3089",
+        "katakana": "\u30e9"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 30,
+    "fields": {
+        "romaji": "sho",
+        "hiragana": "\u3057\u3087",
+        "katakana": "\u30b7\u30e7"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 31,
+    "fields": {
+        "romaji": "ryo",
+        "hiragana": "\u308a\u3087",
+        "katakana": "\u30ea\u30e7"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 33,
+    "fields": {
+        "romaji": "chi",
+        "hiragana": "\u3061",
+        "katakana": "\u30c1"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 34,
+    "fields": {
+        "romaji": "hyu",
+        "hiragana": "\u3072\u3085",
+        "katakana": "\u30d2\u30e5"
+    }
+},
+{
+    "model": "words.japanesesyllable",
+    "pk": 35,
+    "fields": {
+        "romaji": "ma",
+        "hiragana": "\u307e",
+        "katakana": "\u30de"
+    }
+}
+]
