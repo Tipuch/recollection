@@ -68,9 +68,9 @@ class Reading(models.Model):
         (KATAKANA, _('Katakana')),
     )
 
-    romaji = models.CharField(_('Romaji Reading'), max_length=100, blank=True, validators=[validate_eng_char])
-    hiragana = models.CharField(_('Hiragana Reading'), max_length=50, blank=True, validators=[validate_hiragana_char])
-    katakana = models.CharField(_('Katakana Reading'), max_length=50, blank=True, validators=[validate_katakana_char])
+    romaji = models.CharField(_('Romaji Reading'), max_length=100, blank=True, validators=[validate_eng_char], db_index=True)
+    hiragana = models.CharField(_('Hiragana Reading'), max_length=50, blank=True, validators=[validate_hiragana_char], db_index=True)
+    katakana = models.CharField(_('Katakana Reading'), max_length=50, blank=True, validators=[validate_katakana_char], db_index=True)
     default_display = models.IntegerField(_('Default Display'), choices=CHOICES,
                                           default=settings.READINGS_DEFAULT_DISPLAY)
 
