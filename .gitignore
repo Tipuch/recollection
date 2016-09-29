@@ -1,3 +1,4 @@
 *.pyc
 static/
 local_settings.py
+connect.sh

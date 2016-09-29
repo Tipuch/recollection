@@ -95,9 +95,9 @@ class Reading(models.Model):
             if self.romaji:
                 syllables = self.convert_from_romaji()
             elif self.hiragana:
-                syllables = self.convert_from_hiragana()
+                syllables = self.convert_from_japanese_character(self.HIRAGANA)
             elif self.katakana:
-                syllables = self.convert_from_katakana()
+                syllables = self.convert_from_japanese_character(self.KATAKANA)
         except SyllableNotFoundError as e:
             logger.warning(e)
         else:
@@ -127,48 +127,49 @@ class Reading(models.Model):
             i += len(syllable.romaji)
         return syllables
 
-    # need to fix double consonants
-    def convert_from_hiragana(self):
+
+    def convert_from_japanese_character(self, alphabet_id):
+        alphabet_const = {
+            self.HIRAGANA: {
+                'lookup_method': JapaneseSyllable.objects.lookup_hiragana,
+                'attr': 'hiragana'
+            },
+            self.KATAKANA: {
+                'lookup_method': JapaneseSyllable.objects.lookup_katakana,
+                'attr': 'katakana'
+            }
+        }
         syllables = []
-        lookup_method = JapaneseSyllable.objects.lookup_hiragana
+        alphabet_props = alphabet_const[alphabet_id]
+        self_prop = getattr(self, alphabet_props['attr'])
         step = 2
         i = 0
-        while i < len(self.hiragana):
+        while i < len(self_prop):
+            # reset double consonants flag
+            double_consonants_flag = False
             # check for double vowels or consonants on next char
-            if self.hiragana[i] == self.JP_LONG_VOWEL or self.hiragana[i] in self.DOUBLE_CONSONANTS:
+            if self_prop[i] == self.JP_LONG_VOWEL:
                 syllable = JapaneseSyllable.objects.lookup_syllable(JapaneseSyllable.objects.lookup_romaji, syllables[-1].romaji[-1])
             else:
+                # look for double consonants character
+                if self_prop[i] in self.DOUBLE_CONSONANTS:
+                    double_consonants_flag = True
+                    i += 1
                 # look for syllables in next substring (step chars or less)
-                next_substring = self.hiragana[i:i+step] if i + step <= len(self.hiragana) - 1 else self.hiragana[i:]
-                syllable = JapaneseSyllable.objects.lookup_syllable(lookup_method, next_substring)
+                next_substring = self_prop[i:i+step] if i + step <= len(self_prop) - 1 else self_prop[i:]
+                syllable = JapaneseSyllable.objects.lookup_syllable(alphabet_props['lookup_method'], next_substring)
             if not syllable:
                 raise SyllableNotFoundError("Syllable not found in '{0}'".format(next_substring))
             else:
+                if double_consonants_flag:
+                    double_consonants_syll = JapaneseSyllable.objects.lookup_syllable(
+                        JapaneseSyllable.objects.lookup_romaji, syllable.romaji[0]
+                    )
+                    syllables.append(double_consonants_syll)
                 syllables.append(syllable)
-            i += len(syllable.hiragana)
-        print(syllables)
+            i += len(getattr(syllable, alphabet_props['attr']))
         return syllables
 
-    # need to fix double consonants
-    def convert_from_katakana(self):
-        syllables = []
-        lookup_method = JapaneseSyllable.objects.lookup_katakana
-        step = 2
-        i = 0
-        while i < len(self.katakana):
-            # check for double vowels or consonants on next char
-            if self.hiragana[i] == self.JP_LONG_VOWEL or self.hiragana[i] in self.DOUBLE_CONSONANTS:
-                syllable = JapaneseSyllable.objects.lookup_syllable(JapaneseSyllable.objects.lookup_romaji, syllables[-1].romaji[-1])
-            else:
-                # look for syllables in next substring (step chars or less)
-                next_substring = self.katakana[i:i+step] if i + step <= len(self.katakana) - 1 else self.katakana[i:]
-                syllable = JapaneseSyllable.objects.lookup_syllable(lookup_method, next_substring)
-            if not syllable:
-                raise SyllableNotFoundError("Syllable not found in '{0}'".format(next_substring))
-            else:
-                syllables.append(syllable)
-            i += len(syllable.katakana)
-        return syllables
 
     def replace_double_vowels(self, syllables):
         for index, current in enumerate(syllables):
