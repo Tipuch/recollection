@@ -1,7 +1,10 @@
 import logging
+
 from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+
+from model_utils import FieldTracker
 
 from .validators import validate_jap_char, validate_eng_char, validate_hiragana_char, validate_katakana_char
 from .managers import JapaneseSyllableManager
@@ -74,6 +77,8 @@ class Reading(models.Model):
     default_display = models.IntegerField(_('Default Display'), choices=CHOICES,
                                           default=settings.READINGS_DEFAULT_DISPLAY)
 
+    field_tracker = FieldTracker()
+
     def __str__(self):
         choices = {
             self.ROMAJI: self.romaji,
@@ -92,11 +97,11 @@ class Reading(models.Model):
         syllables = []
         try:
             # need to check which one has changed from db
-            if self.romaji:
+            if self.field_tracker.has_changed('romaji'):
                 syllables = self.convert_from_romaji()
-            elif self.hiragana:
+            elif self.field_tracker.has_changed('hiragana'):
                 syllables = self.convert_from_japanese_character(self.HIRAGANA)
-            elif self.katakana:
+            elif self.field_tracker.has_changed('katakana'):
                 syllables = self.convert_from_japanese_character(self.KATAKANA)
         except SyllableNotFoundError as e:
             logger.warning(e)
