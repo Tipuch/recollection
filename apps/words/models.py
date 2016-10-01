@@ -17,7 +17,9 @@ class EnglishWord(models.Model):
     word = models.CharField(_('Word'), max_length=100, validators=[validate_eng_char])
     meaning = models.TextField(_('Meaning'), max_length=500, blank=True)
     readings = models.ManyToManyField('words.Reading', verbose_name=_('Reading'),
-                                      related_name='english_words_readings', blank=True)
+                                      related_name='eng_words_readings', blank=True)
+    tags = models.ManyToManyField('words.SearchTag', verbose_name=_('Search Tags'),
+                                    related_name='eng_words_tags', blank=True)
     created_at = models.DateTimeField(_('Created Date'), auto_now_add=True,
                                       db_index=True)
 
@@ -37,9 +39,11 @@ class JapaneseWord(models.Model):
     word = models.CharField(_('Word'), max_length=100, validators=[validate_jap_char])
     meaning = models.TextField(_('Meaning'), max_length=500, blank=True)
     readings = models.ManyToManyField('words.Reading', verbose_name=_('Readings'),
-                                      related_name='words_reading', blank=True)
+                                      related_name='jap_words_reading', blank=True)
     kanjis = models.ManyToManyField('words.Kanji', verbose_name=_('Kanjis'),
                                     related_name='words', blank=True)
+    tags = models.ManyToManyField('words.SearchTag', verbose_name=_('Search Tags'),
+                                    related_name='jap_words_tags', blank=True)
     created_at = models.DateTimeField(_('Created Date'), auto_now_add=True,
                                       db_index=True)
 
@@ -97,11 +101,11 @@ class Reading(models.Model):
         syllables = []
         try:
             # need to check which one has changed from db
-            if self.field_tracker.has_changed('romaji'):
+            if self.field_tracker.has_changed('romaji') and self.romaji:
                 syllables = self.convert_from_romaji()
-            elif self.field_tracker.has_changed('hiragana'):
+            elif self.field_tracker.has_changed('hiragana') and self.hiragana:
                 syllables = self.convert_from_japanese_character(self.HIRAGANA)
-            elif self.field_tracker.has_changed('katakana'):
+            elif self.field_tracker.has_changed('katakana') and self.katakana:
                 syllables = self.convert_from_japanese_character(self.KATAKANA)
         except SyllableNotFoundError as e:
             logger.warning(e)
@@ -193,3 +197,14 @@ class JapaneseSyllable(models.Model):
 
     def __str__(self):
         return self.romaji
+
+
+class SearchTag(models.Model):
+    eng_tag = models.CharField(_('English Tag'), max_length=50, validators=[validate_eng_char], db_index=True, blank=True)
+    jap_tag = models.CharField(_('Japanese Tag'), max_length=25, validators=[validate_jap_char], db_index=True, blank=True)
+
+    class Meta:
+        verbose_name = _('Search Tag')
+
+    def __str__(self):
+        return '{0} {1}'.format(self.eng_tag, self.jap_tag)
