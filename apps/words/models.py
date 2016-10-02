@@ -22,6 +22,7 @@ class EnglishWord(models.Model):
                                     related_name='eng_words_tags', blank=True)
     created_at = models.DateTimeField(_('Created Date'), auto_now_add=True,
                                       db_index=True)
+    owner = models.ForeignKey('auth.User', verbose_name=_('Owner'), related_name='eng_words_user')
 
     class Meta:
         verbose_name = _('English Word')
@@ -29,6 +30,9 @@ class EnglishWord(models.Model):
     def __str__(self):
         return self.word
 
+    def is_owner(self, user):
+        return self.owner == user or user.is_superuser
+    
     def save(self, *args, **kwargs):
         if self.word:
             self.word = self.word.lower()
@@ -46,12 +50,16 @@ class JapaneseWord(models.Model):
                                     related_name='jap_words_tags', blank=True)
     created_at = models.DateTimeField(_('Created Date'), auto_now_add=True,
                                       db_index=True)
+    owner = models.ForeignKey('auth.User', verbose_name=_('Owner'), related_name='jap_words_user')
 
     class Meta:
         verbose_name = _('Japanese Word')
 
     def __str__(self):
         return self.word
+
+    def is_owner(self, user):
+        return self.owner == user or user.is_superuser
 
 
 class Kanji(models.Model):

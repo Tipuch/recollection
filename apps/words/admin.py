@@ -1,11 +1,12 @@
 from django.contrib import admin
 
 from . import models
+from .admin_mixins import OwnershipAdminMixin
 from .validators import KANJI_PATTERN
 
 
 @admin.register(models.EnglishWord)
-class EnglishWordAdmin(admin.ModelAdmin):
+class EnglishWordAdmin(OwnershipAdminMixin):
     list_display = 'word', 'created_at'
     search_fields = ('readings__romaji', 'readings__hiragana', 'readings__katakana', 'word',
                         'tags__eng_tag', 'tags__jap_tag')
@@ -13,7 +14,7 @@ class EnglishWordAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.JapaneseWord)
-class JapaneseWordAdmin(admin.ModelAdmin):
+class JapaneseWordAdmin(OwnershipAdminMixin):
     filter_horizontal = ('readings', 'kanjis', 'tags')
     list_display = 'word', 'created_at',
     order_fields = 'created_at'
