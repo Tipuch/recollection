@@ -99,26 +99,30 @@ class Reading(models.Model):
 
     def convert_reading(self):
         syllables = []
+        conversion_flag = False
         try:
             # need to check which one has changed from db
             if self.field_tracker.has_changed('romaji') and self.romaji:
+                conversion_flag = True
                 syllables = self.convert_from_romaji()
             elif self.field_tracker.has_changed('hiragana') and self.hiragana:
+                conversion_flag = True
                 syllables = self.convert_from_japanese_character(self.HIRAGANA)
             elif self.field_tracker.has_changed('katakana') and self.katakana:
+                conversion_flag = True
                 syllables = self.convert_from_japanese_character(self.KATAKANA)
         except SyllableNotFoundError as e:
             logger.warning(e)
         else:
-            self.hiragana = ""
-            self.katakana = ""
-            self.romaji = ""
-            self.replace_double_vowels(syllables)
-            for syllable in syllables:
-                print(syllable)
-                self.hiragana += syllable.hiragana
-                self.katakana += syllable.katakana
-                self.romaji += syllable.romaji
+            if conversion_flag:
+                self.hiragana = ""
+                self.katakana = ""
+                self.romaji = ""
+                self.replace_double_vowels(syllables)
+                for syllable in syllables:
+                    self.hiragana += syllable.hiragana
+                    self.katakana += syllable.katakana
+                    self.romaji += syllable.romaji
 
     def convert_from_romaji(self):
         syllables = []
