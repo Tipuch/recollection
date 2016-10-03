@@ -32,7 +32,7 @@ class EnglishWord(models.Model):
 
     def is_owner(self, user):
         return self.owner == user or user.is_superuser
-    
+
     def save(self, *args, **kwargs):
         if self.word:
             self.word = self.word.lower()
@@ -197,7 +197,6 @@ class Reading(models.Model):
             if index > 0:
                 previous = syllables[index - 1]
                 if current.romaji in self.VOWELS and previous.romaji[len(previous.romaji)-1] == current.romaji:
-                    current.hiragana = self.JP_LONG_VOWEL
                     current.katakana = self.JP_LONG_VOWEL
 
 
