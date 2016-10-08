@@ -16,7 +16,12 @@ class OwnershipAdminMixin(admin.ModelAdmin):
             readonly_fields = self.get_readonly_fields(request, obj)
             exclude.extend(readonly_fields)
             kwargs.update({'exclude': exclude})
-        return super(OwnershipAdminMixin, self).get_form(request, obj, **kwargs)
+            return super(OwnershipAdminMixin, self).get_form(request, obj, **kwargs)
+        form = super(OwnershipAdminMixin, self).get_form(request, obj, **kwargs)
+        if not obj and request.user.is_superuser:
+            form.base_fields['owner'].initial = request.user
+        return form
+
 
     def get_queryset(self, request):
         qs = super(OwnershipAdminMixin, self).get_queryset(request)
