@@ -1,14 +1,14 @@
 import logging
 
-from django.db import models
 from django.conf import settings
+from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
 from model_utils import FieldTracker
 
-from .validators import validate_jap_char, validate_eng_char, validate_hiragana_char, validate_katakana_char
-from .managers import JapaneseSyllableManager
 from .exceptions import SyllableNotFoundError
+from .managers import JapaneseSyllableManager
+from .validators import (validate_eng_char, validate_hiragana_char,
+                         validate_jap_char, validate_katakana_char)
 
 logger = logging.getLogger(__name__)
 

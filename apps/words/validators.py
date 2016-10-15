@@ -3,7 +3,6 @@ import re
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
-
 KANJI_PATTERN = re.compile("[\u4e00-\u9fff]")
 HIRAGANA_PATTERN = re.compile("[\u3040-\u309f\u30fc]")
 KATAKANA_PATTERN = re.compile("[\u30a0-\u30ff]")
