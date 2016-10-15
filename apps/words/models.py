@@ -22,7 +22,7 @@ class EnglishWord(models.Model):
                                     related_name='eng_words_tags', blank=True)
     created_at = models.DateTimeField(_('Created Date'), auto_now_add=True,
                                       db_index=True)
-    owner = models.ForeignKey('auth.User', verbose_name=_('Owner'), related_name='eng_words_user')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Owner'), related_name='eng_words_user')
 
     class Meta:
         verbose_name = _('English Word')
@@ -50,7 +50,7 @@ class JapaneseWord(models.Model):
                                     related_name='jap_words_tags', blank=True)
     created_at = models.DateTimeField(_('Created Date'), auto_now_add=True,
                                       db_index=True)
-    owner = models.ForeignKey('auth.User', verbose_name=_('Owner'), related_name='jap_words_user')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Owner'), related_name='jap_words_user')
 
     class Meta:
         verbose_name = _('Japanese Word')
