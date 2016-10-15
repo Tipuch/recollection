@@ -1,5 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
+from django.contrib.auth import get_user_model
 from apps.words.models import JapaneseWord
+from apps.words.forms import SimplestEnWordForm, SimplestJpWordForm
 
 
 class Command(BaseCommand):
@@ -23,4 +25,29 @@ class Command(BaseCommand):
         if not kwargs.get('owner'):
             raise CommandError('You need to specify the owner of the words')
         self.stdout.write("Seems to work, {0}".format(kwargs['owner']))
-        # read file, add words to website, for user. One word per line
+        owner = get_user_model().objects.get(username=kwargs.get('owner'))
+        words = [word.rstrip('\n') for word in open(kwargs.get('filepath'))]
+        lang = 'jp' if kwargs.get('jp') else 'en'
+        self.process_words(words, lang, owner)
+
+    def process_words(self, words, lang, owner):
+        choices = {
+            'jp': {
+                'form_class': SimplestJpWordForm,
+                'verbose': 'Japanese'
+            },
+            'en': {
+                'form_class': SimplestEnWordForm,
+                'verbose': 'English'
+            }
+        }
+        for word in words:
+            form = choices[lang]['form_class'](data={'word': word})
+            if form.is_valid():
+                valid_word = form.save(commit=False)
+                valid_word.owner = owner
+                valid_word.save()
+            else:
+                self.stderr.write('{word}, is not a valid {language} word.'.format(
+                    **{'word': word, 'language': choices[lang]['verbose']}
+                ))
