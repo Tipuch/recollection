@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import JapaneseWord, EnglishWord
+from .models import EnglishWord, JapaneseWord
 
 
 class SimplestJpWordForm(forms.ModelForm):

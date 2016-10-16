@@ -1,28 +1,25 @@
 import logging
 
-from django.db import models
 from django.conf import settings
+from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
 from model_utils import FieldTracker
 
-from .validators import validate_jap_char, validate_eng_char, validate_hiragana_char, validate_katakana_char
-from .managers import JapaneseSyllableManager
 from .exceptions import SyllableNotFoundError
+from .managers import JapaneseSyllableManager
+from .validators import (validate_eng_char, validate_hiragana_char,
+                         validate_jap_char, validate_katakana_char)
 
 logger = logging.getLogger(__name__)
 
 
 class EnglishWord(models.Model):
     word = models.CharField(_('Word'), max_length=100, validators=[validate_eng_char])
-    meaning = models.TextField(_('Meaning'), max_length=500, blank=True)
-    readings = models.ManyToManyField('words.Reading', verbose_name=_('Reading'),
-                                      related_name='eng_words_readings', blank=True)
-    tags = models.ManyToManyField('words.SearchTag', verbose_name=_('Search Tags'),
-                                    related_name='eng_words_tags', blank=True)
-    created_at = models.DateTimeField(_('Created Date'), auto_now_add=True,
-                                      db_index=True)
-    owner = models.ForeignKey('auth.User', verbose_name=_('Owner'), related_name='eng_words_user')
+    meaning = models.TextField(_('Meaning'), max_length=1000, blank=True)
+    readings = models.ManyToManyField('words.Reading', verbose_name=_('Reading'), blank=True)
+    tags = models.ManyToManyField('words.SearchTag', verbose_name=_('Search Tags'), blank=True)
+    created_at = models.DateTimeField(_('Created Date'), auto_now_add=True, db_index=True)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Owner'))
 
     class Meta:
         verbose_name = _('English Word')
@@ -33,6 +30,9 @@ class EnglishWord(models.Model):
     def is_owner(self, user):
         return self.owner == user or user.is_superuser
 
+    def is_complete(self):
+        return self.meaning and self.readings.count()
+
     def save(self, *args, **kwargs):
         if self.word:
             self.word = self.word.lower()
@@ -41,16 +41,12 @@ class EnglishWord(models.Model):
 
 class JapaneseWord(models.Model):
     word = models.CharField(_('Word'), max_length=100, validators=[validate_jap_char])
-    meaning = models.TextField(_('Meaning'), max_length=500, blank=True)
-    readings = models.ManyToManyField('words.Reading', verbose_name=_('Readings'),
-                                      related_name='jap_words_reading', blank=True)
-    kanjis = models.ManyToManyField('words.Kanji', verbose_name=_('Kanjis'),
-                                    related_name='words', blank=True)
-    tags = models.ManyToManyField('words.SearchTag', verbose_name=_('Search Tags'),
-                                    related_name='jap_words_tags', blank=True)
-    created_at = models.DateTimeField(_('Created Date'), auto_now_add=True,
-                                      db_index=True)
-    owner = models.ForeignKey('auth.User', verbose_name=_('Owner'), related_name='jap_words_user')
+    meaning = models.TextField(_('Meaning'), max_length=1000, blank=True)
+    readings = models.ManyToManyField('words.Reading', verbose_name=_('Readings'), blank=True)
+    kanjis = models.ManyToManyField('words.Kanji', verbose_name=_('Kanjis'), blank=True)
+    tags = models.ManyToManyField('words.SearchTag', verbose_name=_('Search Tags'), blank=True)
+    created_at = models.DateTimeField(_('Created Date'), auto_now_add=True, db_index=True)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Owner'))
 
     class Meta:
         verbose_name = _('Japanese Word')
@@ -60,6 +56,9 @@ class JapaneseWord(models.Model):
 
     def is_owner(self, user):
         return self.owner == user or user.is_superuser
+
+    def is_complete(self):
+        return self.meaning and self.readings.count()
 
 
 class Kanji(models.Model):

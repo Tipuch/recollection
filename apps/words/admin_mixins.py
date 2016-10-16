@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.contenttypes.models import ContentType
-from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 
 
 class OwnershipAdminMixin(admin.ModelAdmin):
