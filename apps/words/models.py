@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from model_utils import FieldTracker
 
 from .exceptions import SyllableNotFoundError
-from .managers import JapaneseSyllableManager
+from .managers import JapaneseSyllableManager, ReadingManager
 from .validators import (validate_eng_char, validate_hiragana_char,
                          validate_jap_char, validate_katakana_char)
 
@@ -89,6 +89,7 @@ class Reading(models.Model):
                                           default=settings.READINGS_DEFAULT_DISPLAY)
 
     field_tracker = FieldTracker()
+    objects = ReadingManager()
 
     def __str__(self):
         choices = {
@@ -101,10 +102,10 @@ class Reading(models.Model):
     def save(self, *args, **kwargs):
         if self.romaji:
             self.romaji = self.romaji.lower()
-        self.convert_reading()
+        self.convert()
         super(Reading, self).save(*args, **kwargs)
 
-    def convert_reading(self):
+    def convert(self):
         syllables = []
         conversion_flag = False
         try:
