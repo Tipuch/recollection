@@ -9,10 +9,11 @@ from .validators import KANJI_PATTERN
 
 @admin.register(models.EnglishWord)
 class EnglishWordAdmin(OwnershipAdminMixin):
-    list_display = ('word', 'created_at', 'is_complete')
+    list_display = ('word', 'is_complete', 'created_at')
     search_fields = ('readings__romaji', 'readings__hiragana', 'readings__katakana', 'word',
                         'tags__eng_tag', 'tags__jap_tag')
     filter_horizontal = 'readings', 'tags'
+    list_per_page = 40
 
     def is_complete(self, obj):
         return ugettext('Yes') if obj.is_complete() else ugettext('No')
@@ -22,11 +23,12 @@ class EnglishWordAdmin(OwnershipAdminMixin):
 @admin.register(models.JapaneseWord)
 class JapaneseWordAdmin(OwnershipAdminMixin):
     filter_horizontal = ('readings', 'kanjis', 'tags')
-    list_display = ('word', 'created_at', 'is_complete')
+    list_display = ('word', 'is_complete', 'created_at')
     order_fields = 'created_at'
     search_fields = ('readings__romaji', 'readings__hiragana', 'readings__katakana',
                      'word', 'kanjis__character', 'tags__eng_tag', 'tags__jap_tag')
     readonly_fields = 'created_at',
+    list_per_page = 40
 
     def is_complete(self, obj):
         return ugettext('Yes') if obj.is_complete() else ugettext('No')

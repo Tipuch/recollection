@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # 2 : Hiragana
 # 3 : Katakana
 # This needs a migration upon modification in order to work
-READINGS_DEFAULT_DISPLAY = 1
+READINGS_DEFAULT_DISPLAY = 2
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
