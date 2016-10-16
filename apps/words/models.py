@@ -102,7 +102,7 @@ class Reading(models.Model):
     def save(self, *args, **kwargs):
         if self.romaji:
             self.romaji = self.romaji.lower()
-        self.convert(kwargs.get('force_conversion', False))
+        self.convert(kwargs.pop('force_conversion', False))
         super(Reading, self).save(*args, **kwargs)
 
     def convert(self, force_conversion=False):
