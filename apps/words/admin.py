@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
 
 from . import models
 from .admin_mixins import OwnershipAdminMixin
@@ -7,20 +9,28 @@ from .validators import KANJI_PATTERN
 
 @admin.register(models.EnglishWord)
 class EnglishWordAdmin(OwnershipAdminMixin):
-    list_display = 'word', 'created_at'
+    list_display = ('word', 'created_at', 'is_complete')
     search_fields = ('readings__romaji', 'readings__hiragana', 'readings__katakana', 'word',
                         'tags__eng_tag', 'tags__jap_tag')
     filter_horizontal = 'readings', 'tags'
+
+    def is_complete(self, obj):
+        return ugettext('Yes') if obj.is_complete() else ugettext('No')
+    is_complete.short_description = _('Is Complete')
 
 
 @admin.register(models.JapaneseWord)
 class JapaneseWordAdmin(OwnershipAdminMixin):
     filter_horizontal = ('readings', 'kanjis', 'tags')
-    list_display = 'word', 'created_at',
+    list_display = ('word', 'created_at', 'is_complete')
     order_fields = 'created_at'
     search_fields = ('readings__romaji', 'readings__hiragana', 'readings__katakana',
                      'word', 'kanjis__character', 'tags__eng_tag', 'tags__jap_tag')
     readonly_fields = 'created_at',
+
+    def is_complete(self, obj):
+        return ugettext('Yes') if obj.is_complete() else ugettext('No')
+    is_complete.short_description = _('Is Complete')
 
     def save_model(self, request, obj, form, change):
         characters = list(obj.word)

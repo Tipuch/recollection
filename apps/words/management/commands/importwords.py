@@ -1,7 +1,8 @@
-from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth import get_user_model
-from apps.words.models import JapaneseWord
+from django.core.management.base import BaseCommand, CommandError
+
 from apps.words.forms import SimplestEnWordForm, SimplestJpWordForm
+from apps.words.models import JapaneseWord
 
 
 class Command(BaseCommand):
