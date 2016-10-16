@@ -102,21 +102,21 @@ class Reading(models.Model):
     def save(self, *args, **kwargs):
         if self.romaji:
             self.romaji = self.romaji.lower()
-        self.convert()
+        self.convert(kwargs.get('force_conversion', False))
         super(Reading, self).save(*args, **kwargs)
 
-    def convert(self):
+    def convert(self, force_conversion=False):
         syllables = []
         conversion_flag = False
         try:
             # need to check which one has changed from db
-            if self.field_tracker.has_changed('romaji') and self.romaji:
+            if (self.field_tracker.has_changed('romaji') or force_conversion) and self.romaji:
                 conversion_flag = True
                 syllables = self.convert_from_romaji()
-            elif self.field_tracker.has_changed('hiragana') and self.hiragana:
+            elif (self.field_tracker.has_changed('hiragana') or force_conversion) and self.hiragana:
                 conversion_flag = True
                 syllables = self.convert_from_japanese_character(self.HIRAGANA)
-            elif self.field_tracker.has_changed('katakana') and self.katakana:
+            elif (self.field_tracker.has_changed('katakana') or force_conversion) and self.katakana:
                 conversion_flag = True
                 syllables = self.convert_from_japanese_character(self.KATAKANA)
         except SyllableNotFoundError as e:

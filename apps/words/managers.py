@@ -27,12 +27,6 @@ class JapaneseSyllableManager(models.Manager):
 
 
 class ReadingManager(models.Manager):
-    def convert_all_readings(self):
+    def convert_all(self):
         for reading in self.get_queryset().all():
-            if reading.romaji:
-                reading.field_tracker.changed()['romaji'] = reading.romaji
-            elif reading.hiragana:
-                reading.field_tracker.changed()['hiragana'] = reading.hiragana
-            elif reading.katakana:
-                reading.field_tracker.changed()['katakana'] = reading.katakana
-            reading.save()
+            reading.save(force_conversion=True)
