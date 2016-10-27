@@ -48,6 +48,7 @@ class Command(BaseCommand):
                 valid_word = form.save(commit=False)
                 valid_word.owner = owner
                 valid_word.save()
+                form.save_m2m()
             else:
                 self.stderr.write('{word}, is not a valid {language} word.'.format(
                     **{'word': word, 'language': choices[lang]['verbose']}

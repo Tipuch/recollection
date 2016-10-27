@@ -35,12 +35,7 @@ class JapaneseWordAdmin(OwnershipAdminMixin):
     is_complete.short_description = _('Is Complete')
 
     def save_model(self, request, obj, form, change):
-        characters = list(obj.word)
-        final_kanjis = []
-        for character in characters:
-            if KANJI_PATTERN.match(character):
-                final_kanjis.append(models.Kanji.objects.get_or_create(character=character)[0])
-        form.cleaned_data['kanjis'] = final_kanjis
+        form.cleaned_data['kanjis'] = models.Kanji.objects.get_kanjis(obj.word)
         super(JapaneseWordAdmin, self).save_model(request, obj, form, change)
 
 

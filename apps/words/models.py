@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from model_utils import FieldTracker
 
 from .exceptions import SyllableNotFoundError
-from .managers import JapaneseSyllableManager, ReadingManager
+from .managers import JapaneseSyllableManager, ReadingManager, KanjiManager
 from .validators import (validate_eng_char, validate_hiragana_char,
                          validate_jap_char, validate_katakana_char)
 
@@ -31,7 +31,7 @@ class EnglishWord(models.Model):
         return self.owner == user or user.is_superuser
 
     def is_complete(self):
-        return self.meaning and self.readings.count()
+        return self.meaning and self.readings.exists()
 
     def save(self, *args, **kwargs):
         if self.word:
@@ -58,7 +58,7 @@ class JapaneseWord(models.Model):
         return self.owner == user or user.is_superuser
 
     def is_complete(self):
-        return self.meaning and self.readings.count()
+        return self.meaning and self.readings.exists()
 
 
 class Kanji(models.Model):
@@ -66,6 +66,8 @@ class Kanji(models.Model):
     meaning = models.TextField(_('Meaning'), max_length=500, blank=True)
     readings = models.ManyToManyField('words.Reading', verbose_name=_('Readings'),
                                       related_name='kanjis_reading', blank=True)
+
+    objects = KanjiManager()
 
     def __str__(self):
         return self.character
