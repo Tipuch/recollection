@@ -1,4 +1,5 @@
-from django.contrib.admin import site, AdminSite
+from django.contrib.admin import AdminSite, site
+
 
 class CustomAdminSite(AdminSite):
     site_header = 'Recollection'

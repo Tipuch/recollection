@@ -1,4 +1,5 @@
 from django.forms import BaseFormSet
+
 from .forms import JpWordForm
 
 

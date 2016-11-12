@@ -1,12 +1,14 @@
 import logging
 
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
 from model_utils import FieldTracker
 
 from .exceptions import SyllableNotFoundError
-from .managers import JapaneseSyllableManager, ReadingManager, KanjiManager
+from .managers import JapaneseSyllableManager, KanjiManager, ReadingManager
 from .validators import (validate_eng_char, validate_hiragana_char,
                          validate_jap_char, validate_katakana_char)
 
