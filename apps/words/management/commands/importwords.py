@@ -10,9 +10,11 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('-o', dest='owner', type=str,
-                            help='The user who will be the owner of the words added')
+                            help=('The user who will'
+                                  ' be the owner of the words added'))
         parser.add_argument(dest='filepath', type=str,
-                            help='the filepath to the text file containing the words')
+                            help=('the filepath to the text'
+                                  ' file containing the words'))
         parser.add_argument('-jp', dest='jp', action='store_true',
                             help='use this if you have japanese words')
         parser.add_argument('-en', dest='en', action='store_true',
@@ -25,7 +27,6 @@ class Command(BaseCommand):
             raise CommandError('You can\'t have both -jp and -en')
         if not kwargs.get('owner'):
             raise CommandError('You need to specify the owner of the words')
-        self.stdout.write("Seems to work, {0}".format(kwargs['owner']))
         owner = get_user_model().objects.get(username=kwargs.get('owner'))
         words = [word.rstrip('\n') for word in open(kwargs.get('filepath'))]
         lang = 'jp' if kwargs.get('jp') else 'en'
@@ -50,6 +51,7 @@ class Command(BaseCommand):
                 valid_word.save()
                 form.save_m2m()
             else:
-                self.stderr.write('{word}, is not a valid {language} word.'.format(
-                    **{'word': word, 'language': choices[lang]['verbose']}
-                ))
+                self.stderr.write(
+                    '{word}, is not a valid {language} word.'.format(
+                        **{'word': word, 'language': choices[lang]['verbose']}
+                        ))

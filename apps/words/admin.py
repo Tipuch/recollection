@@ -10,8 +10,9 @@ from .validators import KANJI_PATTERN
 @admin.register(models.EnglishWord)
 class EnglishWordAdmin(OwnershipAdminMixin):
     list_display = ('word', 'is_complete', 'created_at')
-    search_fields = ('readings__romaji', 'readings__hiragana', 'readings__katakana', 'word',
-                        'tags__eng_tag', 'tags__jap_tag')
+    search_fields = ('readings__romaji', 'readings__hiragana',
+                     'readings__katakana', 'word',
+                     'tags__eng_tag', 'tags__jap_tag')
     filter_horizontal = 'readings', 'tags'
     list_per_page = 30
 
@@ -25,8 +26,9 @@ class JapaneseWordAdmin(OwnershipAdminMixin):
     filter_horizontal = ('readings', 'kanjis', 'tags')
     list_display = ('word', 'is_complete', 'created_at')
     order_fields = 'created_at'
-    search_fields = ('readings__romaji', 'readings__hiragana', 'readings__katakana',
-                     'word', 'kanjis__character', 'tags__eng_tag', 'tags__jap_tag')
+    search_fields = ('readings__romaji', 'readings__hiragana',
+                     'readings__katakana', 'word', 'kanjis__character',
+                     'tags__eng_tag', 'tags__jap_tag')
     readonly_fields = 'created_at',
     list_per_page = 30
 

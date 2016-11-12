@@ -11,9 +11,8 @@ ASCII_PATTERN = re.compile("[\u0000-\u007f]")
 
 def validate_jap_char(value):
     for char in value:
-        if not (KANJI_PATTERN.match(char)
-                or HIRAGANA_PATTERN.match(char)
-                or KATAKANA_PATTERN.match(char)):
+        if not (KANJI_PATTERN.match(char) or
+                HIRAGANA_PATTERN.match(char) or KATAKANA_PATTERN.match(char)):
             raise ValidationError(
                 _('"%(value)s" contains non Japanese character(s)'),
                 params={'value': value}
