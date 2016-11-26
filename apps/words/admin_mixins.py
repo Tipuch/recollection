@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 
 
 class OwnershipAdminMixin(admin.ModelAdmin):
+
     def save_model(self, request, obj, form, change):
         if not getattr(obj, 'id'):
             obj.owner = request.user
@@ -37,7 +38,7 @@ class OwnershipAdminMixin(admin.ModelAdmin):
                 'admin:{app}_{model}_changelist'.format(
                     **{'app': content_type.app_label,
                        'model': content_type.model}
-                       )))
+                )))
 
         return super(OwnershipAdminMixin, self).change_view(request, object_id,
                                                             **kwargs)
@@ -49,7 +50,7 @@ class OwnershipAdminMixin(admin.ModelAdmin):
                 'admin:{app}_{model}_changelist'.format(
                     **{'app': content_type.app_label,
                        'model': content_type.model}
-                    )))
+                )))
 
         return super(OwnershipAdminMixin, self).delete_view(request, object_id,
                                                             **kwargs)
@@ -61,8 +62,8 @@ class OwnershipAdminMixin(admin.ModelAdmin):
                 'admin:{app}_{model}_changelist'.format(
                     **{'app': content_type.app_label,
                        'model': content_type.model}
-                    )))
+                )))
 
         return super(OwnershipAdminMixin, self).history_view(
             request, object_id, **kwargs
-            )
+        )

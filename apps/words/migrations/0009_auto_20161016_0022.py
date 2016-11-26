@@ -15,6 +15,15 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='reading',
             name='default_display',
-            field=models.IntegerField(choices=[(1, 'Romaji'), (2, 'Hiragana'), (3, 'Katakana')], default=2, verbose_name='Default Display'),
+            field=models.IntegerField(
+                choices=[
+                    (1,
+                     'Romaji'),
+                    (2,
+                     'Hiragana'),
+                    (3,
+                     'Katakana')],
+                default=2,
+                verbose_name='Default Display'),
         ),
     ]

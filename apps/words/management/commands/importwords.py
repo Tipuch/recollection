@@ -54,4 +54,4 @@ class Command(BaseCommand):
                 self.stderr.write(
                     '{word}, is not a valid {language} word.'.format(
                         **{'word': word, 'language': choices[lang]['verbose']}
-                        ))
+                    ))

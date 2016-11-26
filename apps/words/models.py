@@ -43,10 +43,10 @@ class EnglishWord(models.Model):
     def clean(self):
         if not self.id and EnglishWord.objects.filter(
                 word=self.word, owner=self.owner
-                ).exists():
-                raise ValidationError(ugettext(
-                    "This word already exists in your collection."
-                ))
+        ).exists():
+            raise ValidationError(ugettext(
+                "This word already exists in your collection."
+            ))
 
     def save(self, *args, **kwargs):
         if self.word:
@@ -78,10 +78,10 @@ class JapaneseWord(models.Model):
     def clean(self):
         if not self.id and JapaneseWord.objects.filter(
                 word=self.word, owner=self.owner
-                ).exists():
-                raise ValidationError(ugettext(
-                    "This word already exists in your collection."
-                ))
+        ).exists():
+            raise ValidationError(ugettext(
+                "This word already exists in your collection."
+            ))
 
     def is_owner(self, user):
         return self.owner == user or user.is_superuser
@@ -151,7 +151,7 @@ class Reading(models.Model):
         try:
             # need to check which one has changed from db
             if (self.field_tracker.has_changed('romaji') or
-               force_conversion) and self.romaji:
+                    force_conversion) and self.romaji:
                 conversion_flag = True
                 syllables = self.convert_from_romaji()
             elif (self.field_tracker.has_changed('hiragana') or
@@ -182,14 +182,14 @@ class Reading(models.Model):
         i = 0
         while i < len(self.romaji):
             # look for syllables in next substring (step chars or less)
-            next_substring = self.romaji[i:i+step] if\
+            next_substring = self.romaji[i:i + step] if\
                 i + step <= len(self.romaji) - 1 else self.romaji[i:]
             syllable = JapaneseSyllable.objects.lookup_syllable(lookup_method,
                                                                 next_substring)
             if not syllable:
                 raise SyllableNotFoundError(
                     "Syllable not found in '{0}'".format(next_substring)
-                    )
+                )
             else:
                 syllables.append(syllable)
             i += len(syllable.romaji)
@@ -219,18 +219,18 @@ class Reading(models.Model):
                 syllable = JapaneseSyllable.objects.lookup_syllable(
                     JapaneseSyllable.objects.lookup_romaji,
                     syllables[-1].romaji[-1]
-                    )
+                )
             else:
                 # look for double consonants character
                 if self_prop[i] in self.DOUBLE_CONSONANTS:
                     double_consonants_flag = True
                     i += 1
                 # look for syllables in next substring (step chars or less)
-                next_substring = self_prop[i:i+step] if\
+                next_substring = self_prop[i:i + step] if\
                     i + step <= len(self_prop) - 1 else self_prop[i:]
                 syllable = JapaneseSyllable.objects.lookup_syllable(
                     alphabet_props['lookup_method'], next_substring
-                    )
+                )
             if not syllable:
                 raise SyllableNotFoundError(
                     "Syllable not found in '{0}'".format(next_substring)
@@ -241,7 +241,7 @@ class Reading(models.Model):
                         lookup_syllable(
                             JapaneseSyllable.objects.lookup_romaji,
                             syllable.romaji[0]
-                            )
+                        )
                     syllables.append(double_consonants_syll)
                 syllables.append(syllable)
             i += len(getattr(syllable, alphabet_props['attr']))
@@ -252,8 +252,8 @@ class Reading(models.Model):
             if index > 0:
                 previous = syllables[index - 1]
                 if current.romaji in self.VOWELS and\
-                   previous.romaji[len(previous.romaji)-1] == current.romaji:
-                        current.katakana = self.JP_LONG_VOWEL
+                   previous.romaji[len(previous.romaji) - 1] == current.romaji:
+                    current.katakana = self.JP_LONG_VOWEL
 
 
 class JapaneseSyllable(models.Model):

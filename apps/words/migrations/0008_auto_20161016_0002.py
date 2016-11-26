@@ -17,36 +17,57 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='englishword',
             name='owner',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Owner'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+                verbose_name='Owner'),
         ),
         migrations.AlterField(
             model_name='englishword',
             name='readings',
-            field=models.ManyToManyField(blank=True, to='words.Reading', verbose_name='Reading'),
+            field=models.ManyToManyField(
+                blank=True,
+                to='words.Reading',
+                verbose_name='Reading'),
         ),
         migrations.AlterField(
             model_name='englishword',
             name='tags',
-            field=models.ManyToManyField(blank=True, to='words.SearchTag', verbose_name='Search Tags'),
+            field=models.ManyToManyField(
+                blank=True,
+                to='words.SearchTag',
+                verbose_name='Search Tags'),
         ),
         migrations.AlterField(
             model_name='japaneseword',
             name='kanjis',
-            field=models.ManyToManyField(blank=True, to='words.Kanji', verbose_name='Kanjis'),
+            field=models.ManyToManyField(
+                blank=True,
+                to='words.Kanji',
+                verbose_name='Kanjis'),
         ),
         migrations.AlterField(
             model_name='japaneseword',
             name='owner',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Owner'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+                verbose_name='Owner'),
         ),
         migrations.AlterField(
             model_name='japaneseword',
             name='readings',
-            field=models.ManyToManyField(blank=True, to='words.Reading', verbose_name='Readings'),
+            field=models.ManyToManyField(
+                blank=True,
+                to='words.Reading',
+                verbose_name='Readings'),
         ),
         migrations.AlterField(
             model_name='japaneseword',
             name='tags',
-            field=models.ManyToManyField(blank=True, to='words.SearchTag', verbose_name='Search Tags'),
+            field=models.ManyToManyField(
+                blank=True,
+                to='words.SearchTag',
+                verbose_name='Search Tags'),
         ),
     ]

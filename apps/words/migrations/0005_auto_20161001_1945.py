@@ -17,21 +17,41 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='englishword',
             name='tags',
-            field=models.ManyToManyField(blank=True, related_name='eng_words_tags', to='words.SearchTag', verbose_name='Search Tags'),
+            field=models.ManyToManyField(
+                blank=True,
+                related_name='eng_words_tags',
+                to='words.SearchTag',
+                verbose_name='Search Tags'),
         ),
         migrations.AlterField(
             model_name='japaneseword',
             name='tags',
-            field=models.ManyToManyField(blank=True, related_name='jap_words_tags', to='words.SearchTag', verbose_name='Search Tags'),
+            field=models.ManyToManyField(
+                blank=True,
+                related_name='jap_words_tags',
+                to='words.SearchTag',
+                verbose_name='Search Tags'),
         ),
         migrations.AlterField(
             model_name='searchtag',
             name='eng_tag',
-            field=models.CharField(blank=True, db_index=True, max_length=50, validators=[apps.words.validators.validate_eng_char], verbose_name='English Tag'),
+            field=models.CharField(
+                blank=True,
+                db_index=True,
+                max_length=50,
+                validators=[
+                    apps.words.validators.validate_eng_char],
+                verbose_name='English Tag'),
         ),
         migrations.AlterField(
             model_name='searchtag',
             name='jap_tag',
-            field=models.CharField(blank=True, db_index=True, max_length=25, validators=[apps.words.validators.validate_jap_char], verbose_name='Japanese Tag'),
+            field=models.CharField(
+                blank=True,
+                db_index=True,
+                max_length=25,
+                validators=[
+                    apps.words.validators.validate_jap_char],
+                verbose_name='Japanese Tag'),
         ),
     ]

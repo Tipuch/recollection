@@ -15,11 +15,17 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='englishword',
             name='meaning',
-            field=models.TextField(blank=True, max_length=1000, verbose_name='Meaning'),
+            field=models.TextField(
+                blank=True,
+                max_length=1000,
+                verbose_name='Meaning'),
         ),
         migrations.AlterField(
             model_name='japaneseword',
             name='meaning',
-            field=models.TextField(blank=True, max_length=1000, verbose_name='Meaning'),
+            field=models.TextField(
+                blank=True,
+                max_length=1000,
+                verbose_name='Meaning'),
         ),
     ]

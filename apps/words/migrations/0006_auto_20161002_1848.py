@@ -18,13 +18,23 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='englishword',
             name='owner',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='eng_words_user', to=settings.AUTH_USER_MODEL, verbose_name='Owner'),
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='eng_words_user',
+                to=settings.AUTH_USER_MODEL,
+                verbose_name='Owner'),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='japaneseword',
             name='owner',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='jap_words_user', to=settings.AUTH_USER_MODEL, verbose_name='Owner'),
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='jap_words_user',
+                to=settings.AUTH_USER_MODEL,
+                verbose_name='Owner'),
             preserve_default=False,
         ),
     ]

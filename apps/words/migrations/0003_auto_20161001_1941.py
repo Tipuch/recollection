@@ -17,29 +17,60 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SearchTag',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('eng_tag', models.CharField(db_index=True, max_length=50, validators=[apps.words.validators.validate_eng_char], verbose_name='English Tag')),
-                ('jap_tag', models.CharField(db_index=True, max_length=25, validators=[apps.words.validators.validate_jap_char], verbose_name='Japanese Tag')),
+                ('id',
+                 models.AutoField(
+                     auto_created=True,
+                     primary_key=True,
+                     serialize=False,
+                     verbose_name='ID')),
+                ('eng_tag',
+                 models.CharField(
+                     db_index=True,
+                     max_length=50,
+                     validators=[
+                         apps.words.validators.validate_eng_char],
+                     verbose_name='English Tag')),
+                ('jap_tag',
+                 models.CharField(
+                     db_index=True,
+                     max_length=25,
+                     validators=[
+                         apps.words.validators.validate_jap_char],
+                     verbose_name='Japanese Tag')),
             ],
         ),
         migrations.AlterField(
             model_name='englishword',
             name='readings',
-            field=models.ManyToManyField(blank=True, related_name='eng_words_readings', to='words.Reading', verbose_name='Reading'),
+            field=models.ManyToManyField(
+                blank=True,
+                related_name='eng_words_readings',
+                to='words.Reading',
+                verbose_name='Reading'),
         ),
         migrations.AlterField(
             model_name='japaneseword',
             name='readings',
-            field=models.ManyToManyField(blank=True, related_name='jap_words_reading', to='words.Reading', verbose_name='Readings'),
+            field=models.ManyToManyField(
+                blank=True,
+                related_name='jap_words_reading',
+                to='words.Reading',
+                verbose_name='Readings'),
         ),
         migrations.AddField(
             model_name='englishword',
             name='tags',
-            field=models.ManyToManyField(related_name='eng_words_tags', to='words.SearchTag', verbose_name='Search Tags'),
+            field=models.ManyToManyField(
+                related_name='eng_words_tags',
+                to='words.SearchTag',
+                verbose_name='Search Tags'),
         ),
         migrations.AddField(
             model_name='japaneseword',
             name='tags',
-            field=models.ManyToManyField(related_name='jap_words_tags', to='words.SearchTag', verbose_name='Search Tags'),
+            field=models.ManyToManyField(
+                related_name='jap_words_tags',
+                to='words.SearchTag',
+                verbose_name='Search Tags'),
         ),
     ]

@@ -17,16 +17,34 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='reading',
             name='hiragana',
-            field=models.CharField(blank=True, db_index=True, max_length=50, validators=[apps.words.validators.validate_hiragana_char], verbose_name='Hiragana Reading'),
+            field=models.CharField(
+                blank=True,
+                db_index=True,
+                max_length=50,
+                validators=[
+                    apps.words.validators.validate_hiragana_char],
+                verbose_name='Hiragana Reading'),
         ),
         migrations.AlterField(
             model_name='reading',
             name='katakana',
-            field=models.CharField(blank=True, db_index=True, max_length=50, validators=[apps.words.validators.validate_katakana_char], verbose_name='Katakana Reading'),
+            field=models.CharField(
+                blank=True,
+                db_index=True,
+                max_length=50,
+                validators=[
+                    apps.words.validators.validate_katakana_char],
+                verbose_name='Katakana Reading'),
         ),
         migrations.AlterField(
             model_name='reading',
             name='romaji',
-            field=models.CharField(blank=True, db_index=True, max_length=100, validators=[apps.words.validators.validate_eng_char], verbose_name='Romaji Reading'),
+            field=models.CharField(
+                blank=True,
+                db_index=True,
+                max_length=100,
+                validators=[
+                    apps.words.validators.validate_eng_char],
+                verbose_name='Romaji Reading'),
         ),
     ]

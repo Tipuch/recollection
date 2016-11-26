@@ -4,6 +4,7 @@ from .models import EnglishWord, JapaneseWord, Kanji
 
 
 class SimplestJpWordForm(forms.ModelForm):
+
     class Meta:
         model = JapaneseWord
         fields = 'word', 'kanjis'
@@ -15,12 +16,14 @@ class SimplestJpWordForm(forms.ModelForm):
 
 
 class SimplestEnWordForm(forms.ModelForm):
+
     class Meta:
         model = EnglishWord
         fields = 'word',
 
 
 class JpWordForm(forms.ModelForm):
+
     class Meta:
         model = JapaneseWord
         fields = 'word', 'kanjis'
