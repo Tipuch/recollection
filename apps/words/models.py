@@ -80,8 +80,8 @@ class JapaneseWord(models.Model):
                 word=self.word, owner=self.owner
         ).exists():
             raise ValidationError(ugettext(
-                "This word already exists in your collection."
-            ))
+                "The word [%(word)s] already exists in your collection."
+            ) % {'word': self.word})
 
     def is_owner(self, user):
         return self.owner == user or user.is_superuser

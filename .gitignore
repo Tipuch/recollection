@@ -4,3 +4,9 @@ local_settings.py
 connect.sh
 *.log
 *.db
+.idea/
+apps/__pycache__/
+apps/words/__pycache__/
+apps/words/management/commands/__pycache__/
+apps/words/migrations/__pycache__/
+recollection/__pycache__/

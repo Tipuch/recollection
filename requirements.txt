@@ -1,6 +1,7 @@
 argon2-cffi==16.3.0
 cffi==1.9.1
 Django<1.11
+django-crispy-forms<1.7
 django-model-utils==2.6
 django-suit==0.2.22
 pkg-resources==0.0.0
