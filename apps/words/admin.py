@@ -1,5 +1,6 @@
 from functools import partial, wraps
 from django.contrib import admin
+from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -53,6 +54,9 @@ class JapaneseWordAdmin(OwnershipAdminMixin):
 
     @method_decorator(require_http_methods(["GET", "POST"]))
     def add_list(self, request):
+        if not (self.has_add_permission(request) and self.has_change_permission(
+                request)) or not request.user.is_superuser:
+            return HttpResponse(status=403)
         JpWordFormset = formset_factory(
             wraps(
                 forms.JpWordForm)(
