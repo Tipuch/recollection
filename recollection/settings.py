@@ -128,8 +128,13 @@ LOGGING = {
         'apps.words': {
             'handlers': ['file'],
             'level': 'WARNING',
-            'propagate': True,
+            'propagate': False,
         },
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': False,
+        }
     },
 }
 
