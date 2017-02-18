@@ -46,13 +46,21 @@ class JapaneseWordAdmin(OwnershipAdminMixin):
     def get_urls(self):
         url_patterns = super(JapaneseWordAdmin, self).get_urls()
         info = self.model._meta.app_label, self.model._meta.model_name
-        my_urls = [url(r"^my_view/$", self.add_list, name="%s_%s_add_list" % info)]
+        my_urls = [url(r"^add_list/$",
+                       self.admin_site.admin_view(self.add_list),
+                       name="%s_%s_add_list" % info)]
         return my_urls + url_patterns
 
     @method_decorator(require_http_methods(["GET", "POST"]))
     def add_list(self, request):
-        JpWordFormset = formset_factory(wraps(forms.JpWordForm)(partial(forms.JpWordForm, user=request.user)),
-                                        formset=formsets.BaseJpWordFormset, min_num=1)
+        JpWordFormset = formset_factory(
+            wraps(
+                forms.JpWordForm)(
+                partial(
+                    forms.JpWordForm,
+                    user=request.user)),
+            formset=formsets.BaseJpWordFormset,
+            min_num=1)
         if request.method == "POST":
             formset = JpWordFormset(request.POST)
             if formset.is_valid():
@@ -71,7 +79,11 @@ class JapaneseWordAdmin(OwnershipAdminMixin):
         context['opts'] = self.model._meta
         context['formset'] = formset
         context['helper'] = formsets.BaseJpWordFormsetHelper()
-        return render(request, "admin/words/japaneseword/add_list.html", context)
+        context['has_change_permission'] = self.has_change_permission(request)
+        return render(
+            request,
+            "admin/words/japaneseword/add_list.html",
+            context)
 
     def save_model(self, request, obj, form, change):
         form.cleaned_data['kanjis'] = models.Kanji.objects.get_kanjis(obj.word)

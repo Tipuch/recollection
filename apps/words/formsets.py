@@ -22,4 +22,3 @@ class BaseJpWordFormsetHelper(FormHelper):
         self.add_input(Button("add", ugettext("Add")))
         self.add_input(Button("delete", ugettext("Delete")))
         self.add_input(Submit("submit", ugettext("Save")))
-

@@ -1,6 +1,33 @@
 {% extends "admin/change_form.html" %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags static i18n admin_urls %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+      <li>
+        <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+        <span class="divider">&raquo;</span>
+      </li>
+      <li>
+        <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{% firstof opts.app_config.verbose_name app_label|capfirst|escape %}</a>
+        <span class="divider">&raquo;</span>
+      </li>
+      <li>
+        {% if has_change_permission %}
+          <a href="{% url opts|admin_urlname:'changelist' %}">
+            {{ opts.verbose_name_plural|capfirst }}</a>{% else %}
+          {{ opts.verbose_name_plural|capfirst }}{% endif %}
+        <span class="divider">&raquo;</span>
+      </li>
+      <li class="active">
+        {% trans 'Add' %} {{ opts.verbose_name }} {% trans 'List' %}
+      </li>
+    </ul>
+{% endblock %}
 
 {% block content %}
 {% crispy formset helper %}
+{% endblock %}
+
+{% block extrajs %}
+    <script src="{% static 'words/js/BaseJpWordFormset.js' %}"></script>
 {% endblock %}
