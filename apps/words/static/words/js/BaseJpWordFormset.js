@@ -32,8 +32,9 @@ function modifyLastForm() {
     let newId = getLastFormId() + 1;
     $lastFormDiv.attr("id", "div_id_form-"+newId+"-word");
     $lastFormDiv.find("label:first").attr("for", "id_form-"+newId+"-word");
-    $lastFormDiv.find("input#id_form-"+getLastFormId()+"-word").attr("id", "id_form-"+newId+"-word");
-    $lastFormDiv.find("input#id_form-"+getLastFormId()+"-word").attr("name", "form-"+newId+"-word");
+    let $lastFormWord = $lastFormDiv.find("input#id_form-"+getLastFormId()+"-word");
+    $lastFormWord.attr("id", "id_form-"+newId+"-word");
+    $lastFormWord.attr("name", "form-"+newId+"-word");
     $lastFormKanjis.attr("id", "id_form-"+newId+"-kanjis");
     $lastFormKanjis.attr("name", "form-"+newId+"-kanjis");
     $lastFormOwner.attr("id", "id_form-"+newId+"-owner");
