@@ -51,13 +51,6 @@ class JpWordForm(forms.ModelForm):
         super(JpWordForm, self).__init__(*args, **kwargs)
         self.fields['owner'].initial = self.user.id
 
-    # def save(self, commit=True):
-    #     instance = super(JpWordForm, self).save(commit=False)
-    #     instance.owner = self.user
-    #     if commit:
-    #         instance.save()
-    #     return instance
-
     def _save_m2m(self):
         word = self.cleaned_data['word']
         self.cleaned_data['kanjis'] = Kanji.objects.get_kanjis(word)
