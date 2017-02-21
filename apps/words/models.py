@@ -25,15 +25,18 @@ class EnglishWord(models.Model):
                                   verbose_name=_('Search Tags'), blank=True)
     created_at = models.DateTimeField(_('Created Date'), auto_now_add=True,
                                       db_index=True)
+    # TODO Put this in a mixin
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,
                               verbose_name=_('Owner'))
 
     class Meta:
         verbose_name = _('English Word')
+        # TODO add unique constraint between owner and word
 
     def __str__(self):
         return self.word
 
+    # TODO Put this in a mixin
     def is_owner(self, user):
         return self.owner == user or user.is_superuser
 
@@ -66,11 +69,13 @@ class JapaneseWord(models.Model):
                                   verbose_name=_('Search Tags'), blank=True)
     created_at = models.DateTimeField(_('Created Date'), auto_now_add=True,
                                       db_index=True)
+    # TODO Put this in a mixin
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,
                               verbose_name=_('Owner'))
 
     class Meta:
         verbose_name = _('Japanese Word')
+        # TODO add unique constraint between word and owner
 
     def __str__(self):
         return self.word
@@ -83,6 +88,7 @@ class JapaneseWord(models.Model):
                 "The word [%(word)s] already exists in your collection."
             ) % {'word': self.word})
 
+    # TODO Put this in a mixin
     def is_owner(self, user):
         return self.owner == user or user.is_superuser
 
@@ -91,12 +97,14 @@ class JapaneseWord(models.Model):
 
 
 class Kanji(models.Model):
+    # TODO add uniqueness between owner and character
     character = models.CharField(_('Kanji'), max_length=1)
     meaning = models.TextField(_('Meaning'), max_length=500, blank=True)
     readings = models.ManyToManyField(
         'words.Reading', verbose_name=_('Readings'),
         related_name='kanjis_reading', blank=True
     )
+    # TODO add owner to this model
 
     objects = KanjiManager()
 
@@ -127,6 +135,7 @@ class Reading(models.Model):
         _('Default Display'), choices=CHOICES,
         default=settings.READINGS_DEFAULT_DISPLAY
     )
+    # TODO add owner to this model
 
     field_tracker = FieldTracker()
     objects = ReadingManager()
@@ -274,6 +283,7 @@ class SearchTag(models.Model):
                                validators=[validate_eng_char], db_index=True)
     jap_tag = models.CharField(_('Japanese Tag'), max_length=25, blank=True,
                                validators=[validate_jap_char], db_index=True)
+    # TODO give an owner to this model as well
 
     class Meta:
         verbose_name = _('Search Tag')
