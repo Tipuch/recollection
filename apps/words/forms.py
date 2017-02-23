@@ -32,5 +32,6 @@ class JpWordForm(forms.ModelForm):
 
     def _save_m2m(self):
         word = self.cleaned_data['word']
-        self.cleaned_data['kanjis'] = Kanji.objects.get_kanjis(word, owner=self.cleaned_data['owner'])
+        self.cleaned_data['kanjis'] = Kanji.objects.get_kanjis(
+            word, owner=self.cleaned_data['owner'])
         super(JpWordForm, self)._save_m2m()

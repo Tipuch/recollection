@@ -43,7 +43,8 @@ class Command(BaseCommand):
             }
         }
         for word in words:
-            form = choices[lang]['form_class'](data={'word': word, 'user': owner})
+            form = choices[lang]['form_class'](
+                data={'word': word, 'user': owner})
             if form.is_valid():
                 form.save(commit=False)
                 form.save_m2m()

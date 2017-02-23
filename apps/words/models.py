@@ -151,11 +151,11 @@ class Reading(models.Model):
                 conversion_flag = True
                 syllables = self.convert_from_romaji()
             elif (self.field_tracker.has_changed('hiragana') or
-                      force_conversion) and self.hiragana:
+                  force_conversion) and self.hiragana:
                 conversion_flag = True
                 syllables = self.convert_from_japanese_character(self.HIRAGANA)
             elif (self.field_tracker.has_changed('katakana') or
-                      force_conversion) and self.katakana:
+                  force_conversion) and self.katakana:
                 conversion_flag = True
                 syllables = self.convert_from_japanese_character(self.KATAKANA)
         except SyllableNotFoundError as e:
@@ -235,9 +235,9 @@ class Reading(models.Model):
                 if double_consonants_flag:
                     double_consonants_syll = JapaneseSyllable.objects. \
                         lookup_syllable(
-                        JapaneseSyllable.objects.lookup_romaji,
-                        syllable.romaji[0]
-                    )
+                            JapaneseSyllable.objects.lookup_romaji,
+                            syllable.romaji[0]
+                        )
                     syllables.append(double_consonants_syll)
                 syllables.append(syllable)
             i += len(getattr(syllable, alphabet_props['attr']))
@@ -247,8 +247,8 @@ class Reading(models.Model):
         for index, current in enumerate(syllables):
             if index > 0:
                 previous = syllables[index - 1]
-                if current.romaji in self.VOWELS and \
-                                previous.romaji[len(previous.romaji) - 1] == current.romaji:
+                if current.romaji in self.VOWELS and previous.romaji[
+                        len(previous.romaji) - 1] == current.romaji:
                     current.katakana = self.JP_LONG_VOWEL
 
 
