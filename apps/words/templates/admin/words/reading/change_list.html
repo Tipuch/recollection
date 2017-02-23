@@ -7,7 +7,7 @@
                 <i class="icon-plus-sign icon-white"></i>&nbsp;
                 {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
               </a>
-              <a href="{% url 'admin:convert_all_readings' %}" class="btn btn-success">
+              <a href="{% url 'words:convert_all_readings' %}" class="btn btn-success">
                 <i class="icon-refresh icon-white"></i>&nbsp;
                 {% trans 'Convert all readings' %}
               </a>
