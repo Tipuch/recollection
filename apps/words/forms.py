@@ -1,39 +1,18 @@
 from django import forms
-from django.utils.translation import ugettext
-
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
 
 from .models import EnglishWord, JapaneseWord, Kanji
 
 
-class SimplestJpWordForm(forms.ModelForm):
-
-    class Meta:
-        model = JapaneseWord
-        fields = 'word', 'kanjis'
-        widgets = {
-            'kanjis': forms.HiddenInput()
-        }
+class EnWordForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
-        super(SimplestJpWordForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_id = "id-simplestJpWordForm"
-        self.helper.form_method = "post"
-        self.helper.add_input(Submit('submit', ugettext("Save")))
-
-    def _save_m2m(self):
-        word = self.cleaned_data['word']
-        self.cleaned_data['kanjis'] = Kanji.objects.get_kanjis(word)
-        super(SimplestJpWordForm, self)._save_m2m()
-
-
-class SimplestEnWordForm(forms.ModelForm):
+        self.user = kwargs.pop('user')
+        super(EnWordForm, self).__init__(*args, **kwargs)
+        self.fields['owner'].initial = self.user.id
 
     class Meta:
         model = EnglishWord
-        fields = 'word',
+        fields = 'word', 'owner'
 
 
 class JpWordForm(forms.ModelForm):
@@ -53,5 +32,5 @@ class JpWordForm(forms.ModelForm):
 
     def _save_m2m(self):
         word = self.cleaned_data['word']
-        self.cleaned_data['kanjis'] = Kanji.objects.get_kanjis(word)
+        self.cleaned_data['kanjis'] = Kanji.objects.get_kanjis(word, owner=self.cleaned_data['owner'])
         super(JpWordForm, self)._save_m2m()

@@ -95,7 +95,7 @@ class JapaneseWordAdmin(OwnershipAdminMixin):
 
 
 @admin.register(models.Kanji)
-class KanjiAdmin(admin.ModelAdmin):
+class KanjiAdmin(OwnershipAdminMixin):
     filter_horizontal = 'readings',
 
 
@@ -115,5 +115,5 @@ class JapaneseSyllableAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.SearchTag)
-class SearchTagAdmin(admin.ModelAdmin):
+class SearchTagAdmin(OwnershipAdminMixin):
     pass

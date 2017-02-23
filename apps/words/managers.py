@@ -38,7 +38,7 @@ class ReadingManager(models.Manager):
 
 class KanjiManager(models.Manager):
 
-    def get_kanjis(self, word):
-        return [self.get_queryset().get_or_create(character=character)[0]
+    def get_kanjis(self, word, owner):
+        return [self.get_queryset().get_or_create(character=character, owner=owner)[0]
                 for character in list(word)
                 if KANJI_PATTERN.match(character)]

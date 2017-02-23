@@ -1,8 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand, CommandError
 
-from apps.words.forms import SimplestEnWordForm, SimplestJpWordForm
-from apps.words.models import JapaneseWord
+from apps.words.forms import EnWordForm, JpWordForm
 
 
 class Command(BaseCommand):
@@ -35,20 +34,18 @@ class Command(BaseCommand):
     def process_words(self, words, lang, owner):
         choices = {
             'jp': {
-                'form_class': SimplestJpWordForm,
+                'form_class': JpWordForm,
                 'verbose': 'Japanese'
             },
             'en': {
-                'form_class': SimplestEnWordForm,
+                'form_class': EnWordForm,
                 'verbose': 'English'
             }
         }
         for word in words:
-            form = choices[lang]['form_class'](data={'word': word})
+            form = choices[lang]['form_class'](data={'word': word, 'user': owner})
             if form.is_valid():
-                valid_word = form.save(commit=False)
-                valid_word.owner = owner
-                valid_word.save()
+                form.save(commit=False)
                 form.save_m2m()
             else:
                 self.stderr.write(

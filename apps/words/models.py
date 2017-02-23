@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
 from model_utils import FieldTracker
 
+from apps.words.modelmixins import OwnerMixin
 from .exceptions import SyllableNotFoundError
 from .managers import JapaneseSyllableManager, KanjiManager, ReadingManager
 from .validators import (validate_eng_char, validate_hiragana_char,
@@ -15,7 +16,7 @@ from .validators import (validate_eng_char, validate_hiragana_char,
 logger = logging.getLogger(__name__)
 
 
-class EnglishWord(models.Model):
+class EnglishWord(OwnerMixin):
     word = models.CharField(_('Word'), max_length=100,
                             validators=[validate_eng_char])
     meaning = models.TextField(_('Meaning'), max_length=1000, blank=True)
@@ -25,20 +26,13 @@ class EnglishWord(models.Model):
                                   verbose_name=_('Search Tags'), blank=True)
     created_at = models.DateTimeField(_('Created Date'), auto_now_add=True,
                                       db_index=True)
-    # TODO Put this in a mixin
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL,
-                              verbose_name=_('Owner'))
 
     class Meta:
         verbose_name = _('English Word')
-        # TODO add unique constraint between owner and word
+        unique_together = ('owner', 'word')
 
     def __str__(self):
         return self.word
-
-    # TODO Put this in a mixin
-    def is_owner(self, user):
-        return self.owner == user or user.is_superuser
 
     def is_complete(self):
         return self.meaning and self.readings.exists()
@@ -57,7 +51,7 @@ class EnglishWord(models.Model):
         super(EnglishWord, self).save(*args, **kwargs)
 
 
-class JapaneseWord(models.Model):
+class JapaneseWord(OwnerMixin):
     word = models.CharField(_('Word'), max_length=100,
                             validators=[validate_jap_char])
     meaning = models.TextField(_('Meaning'), max_length=1000, blank=True)
@@ -69,13 +63,10 @@ class JapaneseWord(models.Model):
                                   verbose_name=_('Search Tags'), blank=True)
     created_at = models.DateTimeField(_('Created Date'), auto_now_add=True,
                                       db_index=True)
-    # TODO Put this in a mixin
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL,
-                              verbose_name=_('Owner'))
 
     class Meta:
         verbose_name = _('Japanese Word')
-        # TODO add unique constraint between word and owner
+        unique_together = ('owner', 'word')
 
     def __str__(self):
         return self.word
@@ -88,25 +79,22 @@ class JapaneseWord(models.Model):
                 "The word [%(word)s] already exists in your collection."
             ) % {'word': self.word})
 
-    # TODO Put this in a mixin
-    def is_owner(self, user):
-        return self.owner == user or user.is_superuser
-
     def is_complete(self):
         return self.meaning and self.readings.exists()
 
 
-class Kanji(models.Model):
-    # TODO add uniqueness between owner and character
+class Kanji(OwnerMixin):
     character = models.CharField(_('Kanji'), max_length=1)
     meaning = models.TextField(_('Meaning'), max_length=500, blank=True)
     readings = models.ManyToManyField(
         'words.Reading', verbose_name=_('Readings'),
         related_name='kanjis_reading', blank=True
     )
-    # TODO add owner to this model
 
     objects = KanjiManager()
+
+    class Meta:
+        unique_together = ('owner', 'character')
 
     def __str__(self):
         return self.character
@@ -135,7 +123,6 @@ class Reading(models.Model):
         _('Default Display'), choices=CHOICES,
         default=settings.READINGS_DEFAULT_DISPLAY
     )
-    # TODO add owner to this model
 
     field_tracker = FieldTracker()
     objects = ReadingManager()
@@ -164,11 +151,11 @@ class Reading(models.Model):
                 conversion_flag = True
                 syllables = self.convert_from_romaji()
             elif (self.field_tracker.has_changed('hiragana') or
-                  force_conversion) and self.hiragana:
+                      force_conversion) and self.hiragana:
                 conversion_flag = True
                 syllables = self.convert_from_japanese_character(self.HIRAGANA)
             elif (self.field_tracker.has_changed('katakana') or
-                  force_conversion) and self.katakana:
+                      force_conversion) and self.katakana:
                 conversion_flag = True
                 syllables = self.convert_from_japanese_character(self.KATAKANA)
         except SyllableNotFoundError as e:
@@ -191,7 +178,7 @@ class Reading(models.Model):
         i = 0
         while i < len(self.romaji):
             # look for syllables in next substring (step chars or less)
-            next_substring = self.romaji[i:i + step] if\
+            next_substring = self.romaji[i:i + step] if \
                 i + step <= len(self.romaji) - 1 else self.romaji[i:]
             syllable = JapaneseSyllable.objects.lookup_syllable(lookup_method,
                                                                 next_substring)
@@ -235,7 +222,7 @@ class Reading(models.Model):
                     double_consonants_flag = True
                     i += 1
                 # look for syllables in next substring (step chars or less)
-                next_substring = self_prop[i:i + step] if\
+                next_substring = self_prop[i:i + step] if \
                     i + step <= len(self_prop) - 1 else self_prop[i:]
                 syllable = JapaneseSyllable.objects.lookup_syllable(
                     alphabet_props['lookup_method'], next_substring
@@ -246,11 +233,11 @@ class Reading(models.Model):
                 )
             else:
                 if double_consonants_flag:
-                    double_consonants_syll = JapaneseSyllable.objects.\
+                    double_consonants_syll = JapaneseSyllable.objects. \
                         lookup_syllable(
-                            JapaneseSyllable.objects.lookup_romaji,
-                            syllable.romaji[0]
-                        )
+                        JapaneseSyllable.objects.lookup_romaji,
+                        syllable.romaji[0]
+                    )
                     syllables.append(double_consonants_syll)
                 syllables.append(syllable)
             i += len(getattr(syllable, alphabet_props['attr']))
@@ -260,8 +247,8 @@ class Reading(models.Model):
         for index, current in enumerate(syllables):
             if index > 0:
                 previous = syllables[index - 1]
-                if current.romaji in self.VOWELS and\
-                   previous.romaji[len(previous.romaji) - 1] == current.romaji:
+                if current.romaji in self.VOWELS and \
+                                previous.romaji[len(previous.romaji) - 1] == current.romaji:
                     current.katakana = self.JP_LONG_VOWEL
 
 
@@ -278,15 +265,15 @@ class JapaneseSyllable(models.Model):
         return self.romaji
 
 
-class SearchTag(models.Model):
+class SearchTag(OwnerMixin):
     eng_tag = models.CharField(_('English Tag'), max_length=50, blank=True,
                                validators=[validate_eng_char], db_index=True)
     jap_tag = models.CharField(_('Japanese Tag'), max_length=25, blank=True,
                                validators=[validate_jap_char], db_index=True)
-    # TODO give an owner to this model as well
 
     class Meta:
         verbose_name = _('Search Tag')
+        unique_together = ('eng_tag', 'jap_tag', 'owner')
 
     def __str__(self):
         return '{0} {1}'.format(self.eng_tag, self.jap_tag)
