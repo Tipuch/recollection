@@ -35,6 +35,7 @@ function modifyLastForm() {
     let $lastFormWord = $lastFormDiv.find("input#id_form-"+getLastFormId()+"-word");
     $lastFormWord.attr("id", "id_form-"+newId+"-word");
     $lastFormWord.attr("name", "form-"+newId+"-word");
+    $lastFormWord.val("");
     $lastFormKanjis.attr("id", "id_form-"+newId+"-kanjis");
     $lastFormKanjis.attr("name", "form-"+newId+"-kanjis");
     $lastFormOwner.attr("id", "id_form-"+newId+"-owner");
