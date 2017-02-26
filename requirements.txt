@@ -4,7 +4,6 @@ Django<1.11
 django-crispy-forms<1.7
 django-model-utils==2.6
 django-suit==0.2.22
-pkg-resources==0.0.0
 psycopg2==2.6.2
 pycparser==2.17
 six==1.10.0
