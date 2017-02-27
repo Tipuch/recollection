@@ -160,3 +160,5 @@ STATIC_URL = '/static/'
 from .local_settings import *  # noqa
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
