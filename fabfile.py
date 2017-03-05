@@ -16,6 +16,6 @@ def deploy():
             run("git pull origin master")
             run("pip install -Ur requirements.txt")
             run("python manage.py collectstatic --noinput")
+            run("python manage.py test")
             run("python manage.py migrate")
             run("touch %s" % uwsgi_ini)
-            run("python manage.py test")
