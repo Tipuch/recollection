@@ -19,8 +19,8 @@ class JapaneseSyllableManager(models.Manager):
         This method looks up viable Japanese Syllables
         it returns the appropriate JapaneseSyllable object.
         """
+        result = None
         for i in reversed(range(1, len(value) + 1)):
-            result = None
             try:
                 result = lookup_method(value[:i])
                 return result
