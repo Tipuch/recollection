@@ -3,6 +3,7 @@ local_settings.py
 connect.sh
 *.log
 *.db
+.coverage
 .idea/
 apps/__pycache__/
 apps/words/__pycache__/
