@@ -18,3 +18,4 @@ def deploy():
             run("python manage.py collectstatic --noinput")
             run("python manage.py migrate")
             run("touch %s" % uwsgi_ini)
+            run("python manage.py test")

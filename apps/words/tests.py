@@ -1,11 +1,12 @@
-from django.test import TestCase
+from django.test import TestCase, Client
+from django.urls import reverse
 
 from apps.words.models import Reading
 
 
 class TestWords(TestCase):
 
-    fixtures = ['fixtures/jap_syllables.json']
+    fixtures = ['fixtures/jap_syllables.json', 'fixtures/test_readings.json']
 
     def test_convert_from_hiragana(self):
         reading = Reading(hiragana='あったかあい')
@@ -57,3 +58,8 @@ class TestWords(TestCase):
         self.assertEqual(reading.romaji, 'attakaai')
         self.assertEqual(reading.katakana, 'アッタカーイ')
         self.assertEqual(reading.hiragana, 'あったかあい')
+
+    def test_convert_readings(self):
+        client = Client()
+        response = client.get(reverse('words:convert_all_readings'))
+        self.assertEqual(response.status_code, 302)
