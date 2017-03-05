@@ -49,12 +49,6 @@ INSTALLED_APPS = [
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
-if DEBUG:
-    NOSE_ARGS = [
-        '--with-coverage',
-        '--cover-package=apps.words'
-    ]
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -167,6 +161,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 from .local_settings import *  # noqa
+
+if DEBUG:
+    NOSE_ARGS = [
+        '--with-coverage',
+        '--cover-package=apps.words'
+    ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
