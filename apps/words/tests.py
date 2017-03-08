@@ -1,12 +1,30 @@
+from django.db.models import Prefetch
 from django.test import TestCase, Client
+from django.contrib.auth import get_user_model
+from django.test import override_settings
 from django.urls import reverse
 
-from apps.words.models import Reading
+from apps.words.models import Reading, JapaneseWord, Kanji
 
 
 class TestWords(TestCase):
 
     fixtures = ['fixtures/jap_syllables.json', 'fixtures/test_readings.json']
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        User = get_user_model()
+        User.objects.create(
+            username='testUser',
+            is_staff=True,
+            is_superuser=True)
+
+    @classmethod
+    def tearDownClass(cls):
+        super().setUpClass()
+        User = get_user_model()
+        User.objects.all().delete()
 
     def test_convert_from_hiragana(self):
         reading = Reading(hiragana='あったかあい')
@@ -73,3 +91,26 @@ class TestWords(TestCase):
         self.assertEqual(readings[2].romaji, 'atatakai')
         self.assertEqual(readings[2].hiragana, 'あたたかい')
         self.assertEqual(readings[2].katakana, 'アタタカイ')
+
+    @override_settings(STATICFILES_STORAGE=None)
+    def test_add_jp_word_admin(self):
+        User = get_user_model()
+        user = User.objects.get(username='testUser')
+        add_dict = {
+            'word': '今晩は',
+            'owner': user.id
+        }
+        self.client.force_login(user)
+        post = self.client.post(
+            reverse('admin:words_japaneseword_add'), add_dict)
+        self.assertRedirects(
+            post, reverse('admin:words_japaneseword_changelist'))
+        jp_word = JapaneseWord.objects.prefetch_related(
+            Prefetch(
+                lookup='kanjis',
+                queryset=Kanji.objects.order_by('character'))).get(
+            word='今晩は')
+        kanjis = jp_word.kanjis.all()
+        self.assertEqual(len(kanjis), 2)
+        self.assertEqual(kanjis[0].character, '今')
+        self.assertEqual(kanjis[1].character, '晩')

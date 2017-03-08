@@ -89,6 +89,11 @@ class JapaneseWordAdmin(OwnershipAdminMixin):
             "admin/words/japaneseword/add_list.html",
             context)
 
+    def save_model(self, request, obj, form, change):
+        form.cleaned_data['kanjis'] = models.Kanji.objects.get_kanjis(
+            obj.word, obj.owner)
+        super(JapaneseWordAdmin, self).save_model(request, obj, form, change)
+
 
 @admin.register(models.Kanji)
 class KanjiAdmin(OwnershipAdminMixin):
