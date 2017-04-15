@@ -6,7 +6,7 @@ from fabric.api import cd, prefix, run, env
 env.hosts = ['tipuch@158.69.206.24']
 base_dir = "/home/tipuch"
 working_dir = os.path.join(base_dir, "projects/recollection/")
-virtual_env = os.path.join(base_dir, "virtualenvs/recollection_env/bin/")
+virtual_env = os.path.join(base_dir, ".pyenv/versions/recollection/bin")
 uwsgi_ini = "recollection.ini"
 
 
