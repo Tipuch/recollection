@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand, CommandError
 
-from apps.words.forms import EnWordForm, JpWordForm
+from apps.words.word_parser import process_file
 
 
 class Command(BaseCommand):
@@ -27,29 +27,8 @@ class Command(BaseCommand):
         if not kwargs.get('owner'):
             raise CommandError('You need to specify the owner of the words')
         owner = get_user_model().objects.get(username=kwargs.get('owner'))
-        words = [word.rstrip('\n') for word in open(kwargs.get('filepath'))]
         lang = 'jp' if kwargs.get('jp') else 'en'
-        self.process_words(words, lang, owner)
-
-    def process_words(self, words, lang, owner):
-        choices = {
-            'jp': {
-                'form_class': JpWordForm,
-                'verbose': 'Japanese'
-            },
-            'en': {
-                'form_class': EnWordForm,
-                'verbose': 'English'
-            }
-        }
-        for word in words:
-            form = choices[lang]['form_class'](
-                data={'word': word, 'user': owner})
-            if form.is_valid():
-                form.save(commit=False)
-                form.save_m2m()
-            else:
-                self.stderr.write(
-                    '{word}, is not a valid {language} word.'.format(
-                        **{'word': word, 'language': choices[lang]['verbose']}
-                    ))
+        try:
+            process_file(kwargs.get('filepath'), lang, owner)
+        except ValueError as e:
+            self.stderr.write(e)

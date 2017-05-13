@@ -58,7 +58,7 @@ gulp.task('styles_vendors', function () {
 });
 
 // Combine vendors js, concat, rename, move
-gulp.task('jsvendors', function(){
+gulp.task('js_vendors', function(){
   return gulp.src(paths.vendors)
     .pipe($.concat('vendors.js'))
     .pipe($.rename('vendors.js'))
@@ -75,7 +75,7 @@ gulp.task('clean', function(){
   return gulp.src(['.tmp', 'dist'], { read: false }).pipe($.clean());
 });
 
-gulp.task('build', ['styles', 'styles_vendors', 'jsvendors', 'fonts_vendors']);
+gulp.task('build', ['styles', 'styles_vendors', 'js_vendors', 'fonts_vendors']);
 
 gulp.task('default', ['clean'], function(){
   gulp.start('build');
