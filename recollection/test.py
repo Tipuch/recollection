@@ -2,7 +2,7 @@ from .settings import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['10.0.3.193']
+ALLOWED_HOSTS = ['10.0.3.58']
 
 
 DATABASES = {
