@@ -160,7 +160,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-from .local_settings import *  # noqa
+# from .local_settings import *  # noqa
 
 if DEBUG:
     NOSE_ARGS = [
