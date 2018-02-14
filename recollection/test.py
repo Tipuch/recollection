@@ -8,7 +8,7 @@ STATIC_ROOT = os.environ['STATIC_PATH']
 STATIC_URL = os.environ['STATIC_URL']
 
 MEDIA_ROOT = os.environ['MEDIA_PATH']
-MEDIA_URL = os.environ['STATIC_URL']
+MEDIA_URL = os.environ['MEDIA_URL']
 
 DATABASES = {
     'default': {
