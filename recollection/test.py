@@ -2,8 +2,13 @@ from .settings import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['10.0.3.193']
+ALLOWED_HOSTS = [os.environ['ALLOWED_HOST']]
 
+STATIC_ROOT = os.environ['STATIC_PATH']
+STATIC_URL = os.environ['STATIC_URL']
+
+MEDIA_ROOT = os.environ['MEDIA_PATH']
+MEDIA_URL = os.environ['STATIC_URL']
 
 DATABASES = {
     'default': {
