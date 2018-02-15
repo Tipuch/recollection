@@ -10,6 +10,8 @@ STATIC_URL = os.environ['STATIC_URL']
 MEDIA_ROOT = os.environ['MEDIA_PATH']
 MEDIA_URL = os.environ['MEDIA_URL']
 
+SECRET_KEY = os.environ['SECRET_KEY']
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
