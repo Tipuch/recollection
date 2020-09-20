@@ -1,8 +1,9 @@
-from django.conf.urls import url
+from django.urls import path
 
 from .views import ConvertAllReadingsView
 
+
+app_name = 'words'
 urlpatterns = [
-    url(r'^readings/convert', ConvertAllReadingsView.as_view(),
-        name='convert_all_readings'),
+    path('readings/convert', ConvertAllReadingsView.as_view(), name='convert_all_readings'),
 ]

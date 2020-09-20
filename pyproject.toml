@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "recollection"
+version = "0.1.0"
+description = ""
+authors = ["Tipuch"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Django = "^3.1"
+uvicorn = "^0.11.8"
+psycopg2-binary = "^2.8.5"
+argon2-cffi = "^20.1.0"
+django-redis = "^4.12.1"
+cryptography = "^3.1"
+django-crispy-forms = "^1.9.2"
+django-nose = "^1.4.7"
+pytz = "^2020.1"
+django-model-utils = "^4.0.0"
+
+[tool.poetry.dev-dependencies]
+yapf = "^0.30.0"

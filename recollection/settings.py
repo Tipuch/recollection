@@ -36,7 +36,6 @@ SECRET_KEY = "#9!qfm$-nx^#*0xs5^h(l!0(b$!wj*-dsdsnsl+^*qme7hnpx8"
 # Application definition
 
 INSTALLED_APPS = [
-    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -147,4 +146,4 @@ if DEBUG:
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
