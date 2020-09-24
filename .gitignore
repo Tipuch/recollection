@@ -1,3 +1,5 @@
+static/node_modules
+static/root/*
 *.pyc
 local_settings.py
 connect.sh
@@ -10,8 +12,6 @@ apps/words/__pycache__/
 apps/words/management/commands/__pycache__/
 apps/words/migrations/__pycache__/
 recollection/__pycache__/
-gulp/node_modules/
-gulp/.sass-cache/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

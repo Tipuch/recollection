@@ -144,6 +144,10 @@ if DEBUG:
         '--cover-package=apps.words'
     ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static/dist"),
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static/root")
 
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
