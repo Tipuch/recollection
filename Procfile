@@ -1,0 +1,1 @@
+web: gunicorn recollection.asgi:application -k uvicorn.workers.UvicornWorker
