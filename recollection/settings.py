@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -79,7 +78,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'recollection.wsgi.application'
 
-
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 
@@ -130,7 +128,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
@@ -139,10 +136,7 @@ STATIC_URL = '/static/'
 # from .local_settings import *  # noqa
 
 if DEBUG:
-    NOSE_ARGS = [
-        '--with-coverage',
-        '--cover-package=apps.words'
-    ]
+    NOSE_ARGS = ['--with-coverage', '--cover-package=apps.words']
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static/dist"),

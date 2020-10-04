@@ -11,12 +11,11 @@ ASCII_PATTERN = re.compile("[\u0000-\u007f]")
 
 def validate_jap_char(value):
     for char in value:
-        if not (KANJI_PATTERN.match(char) or
-                HIRAGANA_PATTERN.match(char) or KATAKANA_PATTERN.match(char)):
+        if not (KANJI_PATTERN.match(char) or HIRAGANA_PATTERN.match(char)
+                or KATAKANA_PATTERN.match(char)):
             raise ValidationError(
                 _('"%(value)s" contains non Japanese character(s)'),
-                params={'value': value}
-            )
+                params={'value': value})
 
 
 def validate_eng_char(value):
@@ -24,8 +23,7 @@ def validate_eng_char(value):
         if not (ASCII_PATTERN.match(char)):
             raise ValidationError(
                 _('"%(value)s" contains non Alphabetical character(s)'),
-                params={'value': value}
-            )
+                params={'value': value})
 
 
 def validate_hiragana_char(value):
@@ -33,8 +31,7 @@ def validate_hiragana_char(value):
         if not (HIRAGANA_PATTERN.match(char)):
             raise ValidationError(
                 _('"%(value)s" contains non Hiragana character(s)'),
-                params={'value': value}
-            )
+                params={'value': value})
 
 
 def validate_katakana_char(value):
@@ -42,5 +39,4 @@ def validate_katakana_char(value):
         if not (KATAKANA_PATTERN.match(char)):
             raise ValidationError(
                 _('"%(value)s" contains non Katakana character(s)'),
-                params={'value': value}
-            )
+                params={'value': value})

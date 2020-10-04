@@ -4,7 +4,6 @@ from .validators import KANJI_PATTERN
 
 
 class JapaneseSyllableManager(models.Manager):
-
     def lookup_romaji(self, value):
         return self.get_queryset().get(romaji=value)
 
@@ -30,15 +29,15 @@ class JapaneseSyllableManager(models.Manager):
 
 
 class ReadingManager(models.Manager):
-
     def convert_all(self):
         for reading in self.get_queryset().all():
             reading.save(force_conversion=True)
 
 
 class KanjiManager(models.Manager):
-
     def get_kanjis(self, word, owner):
-        return [self.get_queryset().get_or_create(character=character, owner=owner)[0]
-                for character in list(word)
-                if KANJI_PATTERN.match(character)]
+        return [
+            self.get_queryset().get_or_create(character=character,
+                                              owner=owner)[0]
+            for character in list(word) if KANJI_PATTERN.match(character)
+        ]

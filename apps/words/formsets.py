@@ -13,7 +13,6 @@ class BaseJpWordFormset(BaseFormSet):
 
 
 class BaseJpWordFormsetHelper(FormHelper):
-
     def __init__(self, *args, **kwargs):
         super(BaseJpWordFormsetHelper, self).__init__(*args, **kwargs)
         self.form_method = 'post'

@@ -4,7 +4,6 @@ from .models import EnglishWord, JapaneseWord, Kanji
 
 
 class EnWordForm(forms.ModelForm):
-
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')
         super(EnWordForm, self).__init__(*args, **kwargs)
@@ -16,14 +15,10 @@ class EnWordForm(forms.ModelForm):
 
 
 class JpWordForm(forms.ModelForm):
-
     class Meta:
         model = JapaneseWord
         fields = 'word', 'kanjis', 'owner'
-        widgets = {
-            'kanjis': forms.HiddenInput(),
-            'owner': forms.HiddenInput()
-        }
+        widgets = {'kanjis': forms.HiddenInput(), 'owner': forms.HiddenInput()}
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')

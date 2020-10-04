@@ -5,7 +5,8 @@ from django.utils.translation import ugettext_lazy as _
 
 class OwnerMixin(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,
-                              verbose_name=_('Owner'), on_delete=models.CASCADE)
+                              verbose_name=_('Owner'),
+                              on_delete=models.CASCADE)
 
     class Meta:
         abstract = True

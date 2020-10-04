@@ -15,10 +15,9 @@ class TestWords(TestCase):
     def setUpClass(cls):
         super().setUpClass()
         User = get_user_model()
-        User.objects.create(
-            username='testUser',
-            is_staff=True,
-            is_superuser=True)
+        User.objects.create(username='testUser',
+                            is_staff=True,
+                            is_superuser=True)
 
     @classmethod
     def tearDownClass(cls):
@@ -96,20 +95,16 @@ class TestWords(TestCase):
     def test_add_jp_word_admin(self):
         User = get_user_model()
         user = User.objects.get(username='testUser')
-        add_dict = {
-            'word': '今晩は',
-            'owner': user.id
-        }
+        add_dict = {'word': '今晩は', 'owner': user.id}
         self.client.force_login(user)
-        post = self.client.post(
-            reverse('admin:words_japaneseword_add'), add_dict)
-        self.assertRedirects(
-            post, reverse('admin:words_japaneseword_changelist'))
+        post = self.client.post(reverse('admin:words_japaneseword_add'),
+                                add_dict)
+        self.assertRedirects(post,
+                             reverse('admin:words_japaneseword_changelist'))
         jp_word = JapaneseWord.objects.prefetch_related(
             Prefetch(
                 lookup='kanjis',
-                queryset=Kanji.objects.order_by('character'))).get(
-            word='今晩は')
+                queryset=Kanji.objects.order_by('character'))).get(word='今晩は')
         kanjis = jp_word.kanjis.all()
         self.assertEqual(len(kanjis), 2)
         self.assertEqual(kanjis[0].character, '今')

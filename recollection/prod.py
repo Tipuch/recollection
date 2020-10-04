@@ -4,11 +4,14 @@ from .settings import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOST', 'tipuch-recollection.herokuapp.com')]
+ALLOWED_HOSTS = [
+    os.environ.get('ALLOWED_HOST', 'tipuch-recollection.herokuapp.com')
+]
 
 SECRET_KEY = os.environ['SECRET_KEY']
 
-DATABASES['default'] = dj_database_url.parse(os.environ["DATABASE_URL"], conn_max_age=600)
+DATABASES['default'] = dj_database_url.parse(os.environ["DATABASE_URL"],
+                                             conn_max_age=600)
 
 LOGGING = {
     'version': 1,

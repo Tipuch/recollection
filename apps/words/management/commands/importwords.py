@@ -8,15 +8,22 @@ class Command(BaseCommand):
     help = 'Loads words from file into the site'
 
     def add_arguments(self, parser):
-        parser.add_argument('-o', dest='owner', type=str,
+        parser.add_argument('-o',
+                            dest='owner',
+                            type=str,
                             help=('The user who will'
                                   ' be the owner of the words added'))
-        parser.add_argument(dest='filepath', type=str,
+        parser.add_argument(dest='filepath',
+                            type=str,
                             help=('the filepath to the text'
                                   ' file containing the words'))
-        parser.add_argument('-jp', dest='jp', action='store_true',
+        parser.add_argument('-jp',
+                            dest='jp',
+                            action='store_true',
                             help='use this if you have japanese words')
-        parser.add_argument('-en', dest='en', action='store_true',
+        parser.add_argument('-en',
+                            dest='en',
+                            action='store_true',
                             help='use this if you have english words')
 
     def handle(self, *args, **kwargs):
@@ -43,13 +50,17 @@ class Command(BaseCommand):
             }
         }
         for word in words:
-            form = choices[lang]['form_class'](
-                data={'word': word, 'user': owner})
+            form = choices[lang]['form_class'](data={
+                'word': word,
+                'user': owner
+            })
             if form.is_valid():
                 form.save(commit=False)
                 form.save_m2m()
             else:
                 self.stderr.write(
                     '{word}, is not a valid {language} word.'.format(
-                        **{'word': word, 'language': choices[lang]['verbose']}
-                    ))
+                        **{
+                            'word': word,
+                            'language': choices[lang]['verbose']
+                        }))

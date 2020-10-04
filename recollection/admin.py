@@ -8,4 +8,5 @@ class CustomAdminSite(AdminSite):
         super(CustomAdminSite, self).__init__(*args, **kwargs)
         self._registry.update(site._registry)
 
+
 site = CustomAdminSite()
