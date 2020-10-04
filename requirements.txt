@@ -58,7 +58,7 @@ cffi==1.14.3 \
 click==7.1.2 \
     --hash=sha256:dacca89f4bfadd5de3d7489b7c8a566eee0d3676333fbb50030263894c38c0dc \
     --hash=sha256:d2b5255c7c6349bc1bd1e59e08cd12acbbd63ce649f2588755783aa94dfb6b1a
-colorama==0.4.3; sys_platform == "win32" \
+colorama==0.4.3; sys_platform == "win32" or platform_system == "Windows" \
     --hash=sha256:7d73d2a99753107a36ac6b455ee49046802e59d9d076ef8e47b61499fa29afff \
     --hash=sha256:e96da0d330793e2cb9485e9ddfd918d456036c7149416295932478192f4436a1
 cryptography==3.1 \
@@ -84,6 +84,9 @@ cryptography==3.1 \
     --hash=sha256:fa7fbcc40e2210aca26c7ac8a39467eae444d90a2c346cbcffd9133a166bcc67 \
     --hash=sha256:548b0818e88792318dc137d8b1ec82a0ab0af96c7f0603a00bb94f896fbf5e10 \
     --hash=sha256:26409a473cc6278e4c90f782cd5968ebad04d3911ed1c402fc86908c17633e08
+dj-database-url==0.5.0 \
+    --hash=sha256:4aeaeb1f573c74835b0686a2b46b85990571159ffc21aa57ecd4d1e1cb334163 \
+    --hash=sha256:851785365761ebe4994a921b433062309eb882fedd318e1b0fcecc607ed02da9
 django==3.1.1 \
     --hash=sha256:b5fbb818e751f660fa2d576d9f40c34a4c615c8b48dd383f5216e609f383371f \
     --hash=sha256:59c8125ca873ed3bdae9c12b146fbbd6ed8d0f743e4cf5f5817af50c51f1fc2f

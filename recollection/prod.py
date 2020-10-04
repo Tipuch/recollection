@@ -1,3 +1,5 @@
+import dj_database_url
+
 from .settings import *
 
 DEBUG = False
@@ -12,16 +14,7 @@ MEDIA_URL = os.environ['MEDIA_URL']
 
 SECRET_KEY = os.environ['SECRET_KEY']
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ['POSTGRES_DB'],
-        'USER': os.environ['POSTGRES_USER'],
-        'PASSWORD': os.environ['POSTGRES_PASSWORD'],
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
+DATABASES['default'] = dj_database_url.parse(os.environ["DATABASE_URL"], conn_max_age=600)
 
 LOGGING = {
     'version': 1,
