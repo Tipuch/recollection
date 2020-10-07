@@ -388,6 +388,17 @@ python-versions = ">=3.6.1"
 version = "8.1"
 
 [[package]]
+category = "main"
+description = "Radically simplified static file serving for WSGI applications"
+name = "whitenoise"
+optional = false
+python-versions = ">=3.5, <4"
+version = "5.2.0"
+
+[package.extras]
+brotli = ["brotli"]
+
+[[package]]
 category = "dev"
 description = "A formatter for Python code."
 name = "yapf"
@@ -396,7 +407,7 @@ python-versions = "*"
 version = "0.30.0"
 
 [metadata]
-content-hash = "07f4bd879fdec53f832c6098b82d6ffe24ba9f36a4d3495a30c6858c693b2309"
+content-hash = "6714511c4151c46d9a64915da41e9a22690541e2a0152525fe6d5459c91c4af3"
 lock-version = "1.0"
 python-versions = "^3.8"
 
@@ -681,6 +692,10 @@ websockets = [
     {file = "websockets-8.1-cp38-cp38-win32.whl", hash = "sha256:e898a0863421650f0bebac8ba40840fc02258ef4714cb7e1fd76b6a6354bda36"},
     {file = "websockets-8.1-cp38-cp38-win_amd64.whl", hash = "sha256:f8a7bff6e8664afc4e6c28b983845c5bc14965030e3fb98789734d416af77c4b"},
     {file = "websockets-8.1.tar.gz", hash = "sha256:5c65d2da8c6bce0fca2528f69f44b2f977e06954c8512a952222cea50dad430f"},
+]
+whitenoise = [
+    {file = "whitenoise-5.2.0-py2.py3-none-any.whl", hash = "sha256:05d00198c777028d72d8b0bbd234db605ef6d60e9410125124002518a48e515d"},
+    {file = "whitenoise-5.2.0.tar.gz", hash = "sha256:05ce0be39ad85740a78750c86a93485c40f08ad8c62a6006de0233765996e5c7"},
 ]
 yapf = [
     {file = "yapf-0.30.0-py2.py3-none-any.whl", hash = "sha256:3abf61ba67cf603069710d30acbc88cfe565d907e16ad81429ae90ce9651e0c9"},
