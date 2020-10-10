@@ -43,10 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.words',
     'crispy_forms',
-    'django_nose',
 ]
-
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

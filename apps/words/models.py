@@ -225,9 +225,10 @@ class Reading(models.Model):
             double_consonants_flag = False
             # check for double vowels or consonants on next char
             if self_prop[i] == self.JP_LONG_VOWEL:
+                next_substring = syllables[-1].romaji[-1]
                 syllable = JapaneseSyllable.objects.lookup_syllable(
                     JapaneseSyllable.objects.lookup_romaji,
-                    syllables[-1].romaji[-1])
+                    next_substring)
             else:
                 # look for double consonants character
                 if self_prop[i] in self.DOUBLE_CONSONANTS:
