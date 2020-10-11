@@ -1,110 +1,16 @@
 import logging
-
-from django.conf import settings
-from django.core.exceptions import ValidationError
 from django.db import models
+from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ugettext
 from model_utils import FieldTracker
 
-from apps.words.modelmixins import OwnerMixin
-from .exceptions import SyllableNotFoundError
-from .managers import JapaneseSyllableManager, KanjiManager, ReadingManager
-from .validators import (validate_eng_char, validate_hiragana_char,
-                         validate_jap_char, validate_katakana_char)
+from apps.words.exceptions import SyllableNotFoundError
+from apps.words.managers import ReadingManager
+from .japanese_syllable import JapaneseSyllable
+from apps.words.validators import validate_eng_char, validate_hiragana_char, validate_katakana_char
+
 
 logger = logging.getLogger(__name__)
-
-
-class EnglishWord(OwnerMixin):
-    word = models.CharField(_('Word'),
-                            max_length=100,
-                            validators=[validate_eng_char])
-    meaning = models.TextField(_('Meaning'), max_length=1000, blank=True)
-    readings = models.ManyToManyField('words.Reading',
-                                      verbose_name=_('Reading'),
-                                      blank=True)
-    tags = models.ManyToManyField('words.SearchTag',
-                                  verbose_name=_('Search Tags'),
-                                  blank=True)
-    created_at = models.DateTimeField(_('Created Date'),
-                                      auto_now_add=True,
-                                      db_index=True)
-
-    class Meta:
-        verbose_name = _('English Word')
-        unique_together = ('owner', 'word')
-
-    def __str__(self):
-        return self.word
-
-    def is_complete(self):
-        return self.meaning and self.readings.exists()
-
-    def clean(self):
-        if not self.id and EnglishWord.objects.filter(
-                word=self.word, owner=self.owner).exists():
-            raise ValidationError(
-                ugettext("This word already exists in your collection."))
-
-    def save(self, *args, **kwargs):
-        if self.word:
-            self.word = self.word.lower()
-        super(EnglishWord, self).save(*args, **kwargs)
-
-
-class JapaneseWord(OwnerMixin):
-    word = models.CharField(_('Word'),
-                            max_length=100,
-                            validators=[validate_jap_char])
-    meaning = models.TextField(_('Meaning'), max_length=1000, blank=True)
-    readings = models.ManyToManyField('words.Reading',
-                                      verbose_name=_('Readings'),
-                                      blank=True)
-    kanjis = models.ManyToManyField('words.Kanji',
-                                    verbose_name=_('Kanjis'),
-                                    blank=True)
-    tags = models.ManyToManyField('words.SearchTag',
-                                  verbose_name=_('Search Tags'),
-                                  blank=True)
-    created_at = models.DateTimeField(_('Created Date'),
-                                      auto_now_add=True,
-                                      db_index=True)
-
-    class Meta:
-        verbose_name = _('Japanese Word')
-        unique_together = ('owner', 'word')
-
-    def __str__(self):
-        return self.word
-
-    def clean(self):
-        if not self.id and JapaneseWord.objects.filter(
-                word=self.word, owner=self.owner).exists():
-            raise ValidationError(
-                ugettext(
-                    "The word [%(word)s] already exists in your collection.") %
-                {'word': self.word})
-
-    def is_complete(self):
-        return self.meaning and self.readings.exists()
-
-
-class Kanji(OwnerMixin):
-    character = models.CharField(_('Kanji'), max_length=1)
-    meaning = models.TextField(_('Meaning'), max_length=500, blank=True)
-    readings = models.ManyToManyField('words.Reading',
-                                      verbose_name=_('Readings'),
-                                      related_name='kanjis_reading',
-                                      blank=True)
-
-    objects = KanjiManager()
-
-    class Meta:
-        unique_together = ('owner', 'character')
-
-    def __str__(self):
-        return self.character
 
 
 class Reading(models.Model):
@@ -261,45 +167,3 @@ class Reading(models.Model):
                 if current.romaji in self.VOWELS and previous.romaji[
                         len(previous.romaji) - 1] == current.romaji:
                     current.katakana = self.JP_LONG_VOWEL
-
-
-class JapaneseSyllable(models.Model):
-    romaji = models.CharField(_('Romaji'),
-                              max_length=3,
-                              db_index=True,
-                              unique=True,
-                              validators=[validate_eng_char])
-    hiragana = models.CharField(
-        _('Hiragana'),
-        max_length=2,
-        db_index=True,
-        validators=[validate_hiragana_char],
-    )
-    katakana = models.CharField(_('Katakana'),
-                                max_length=2,
-                                db_index=True,
-                                validators=[validate_katakana_char])
-    objects = JapaneseSyllableManager()
-
-    def __str__(self):
-        return self.romaji
-
-
-class SearchTag(OwnerMixin):
-    eng_tag = models.CharField(_('English Tag'),
-                               max_length=50,
-                               blank=True,
-                               validators=[validate_eng_char],
-                               db_index=True)
-    jap_tag = models.CharField(_('Japanese Tag'),
-                               max_length=25,
-                               blank=True,
-                               validators=[validate_jap_char],
-                               db_index=True)
-
-    class Meta:
-        verbose_name = _('Search Tag')
-        unique_together = ('eng_tag', 'jap_tag', 'owner')
-
-    def __str__(self):
-        return '{0} {1}'.format(self.eng_tag, self.jap_tag)
