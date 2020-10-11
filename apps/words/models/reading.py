@@ -9,7 +9,6 @@ from apps.words.managers import ReadingManager
 from .japanese_syllable import JapaneseSyllable
 from apps.words.validators import validate_eng_char, validate_hiragana_char, validate_katakana_char
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -133,8 +132,7 @@ class Reading(models.Model):
             if self_prop[i] == self.JP_LONG_VOWEL:
                 next_substring = syllables[-1].romaji[-1]
                 syllable = JapaneseSyllable.objects.lookup_syllable(
-                    JapaneseSyllable.objects.lookup_romaji,
-                    next_substring)
+                    JapaneseSyllable.objects.lookup_romaji, next_substring)
             else:
                 # look for double consonants character
                 if self_prop[i] in self.DOUBLE_CONSONANTS:

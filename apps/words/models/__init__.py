@@ -2,5 +2,9 @@ from .english_word import EnglishWord
 from .japanese_syllable import JapaneseSyllable
 from .japanese_word import JapaneseWord
 from .kanji import Kanji
+from .jp_quiz import JPQuiz
+from .jp_quiz_answer import JPQuizAnswer
+from .jp_quiz_question import JPQuizQuestion
+from .jp_quiz_template import JPQuizTemplate
 from .reading import Reading
 from .search_tag import SearchTag
