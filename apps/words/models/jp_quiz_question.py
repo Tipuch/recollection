@@ -11,9 +11,6 @@ class JPQuizQuestion(OwnerMixin):
     choices = models.ManyToManyField('words.JapaneseWord',
                                      verbose_name=_('Choices'),
                                      related_name='questions_as_choices')
-    question = models.ForeignKey('words.EnglishWord',
-                                 verbose_name=_('Question'),
-                                 on_delete=models.CASCADE)
     right_answer = models.ForeignKey('words.JapaneseWord',
                                      verbose_name=_('Right answer'),
                                      related_name='questions_as_answer',
