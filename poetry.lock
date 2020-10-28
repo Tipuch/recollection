@@ -1,108 +1,107 @@
 [[package]]
-category = "main"
-description = "The secure Argon2 password hashing algorithm."
 name = "argon2-cffi"
+version = "20.1.0"
+description = "The secure Argon2 password hashing algorithm."
+category = "main"
 optional = false
 python-versions = "*"
-version = "20.1.0"
 
 [package.dependencies]
 cffi = ">=1.0.0"
 six = "*"
 
 [package.extras]
-dev = ["coverage (>=5.0.2)", "hypothesis", "pytest", "sphinx", "wheel", "pre-commit"]
+dev = ["coverage[toml] (>=5.0.2)", "hypothesis", "pytest", "sphinx", "wheel", "pre-commit"]
 docs = ["sphinx"]
-tests = ["coverage (>=5.0.2)", "hypothesis", "pytest"]
+tests = ["coverage[toml] (>=5.0.2)", "hypothesis", "pytest"]
 
 [[package]]
-category = "main"
-description = "ASGI specs, helper code, and adapters"
 name = "asgiref"
+version = "3.2.10"
+description = "ASGI specs, helper code, and adapters"
+category = "main"
 optional = false
 python-versions = ">=3.5"
-version = "3.2.10"
 
 [package.extras]
 tests = ["pytest", "pytest-asyncio"]
 
 [[package]]
-category = "dev"
-description = "Security oriented static analyser for python code."
 name = "bandit"
+version = "1.6.2"
+description = "Security oriented static analyser for python code."
+category = "dev"
 optional = false
 python-versions = "*"
-version = "1.6.2"
 
 [package.dependencies]
+colorama = {version = ">=0.3.9", markers = "platform_system == \"Windows\""}
 GitPython = ">=1.0.1"
 PyYAML = ">=3.13"
-colorama = ">=0.3.9"
 six = ">=1.10.0"
 stevedore = ">=1.20.0"
 
 [[package]]
-category = "main"
-description = "Foreign Function Interface for Python calling C code."
 name = "cffi"
+version = "1.14.3"
+description = "Foreign Function Interface for Python calling C code."
+category = "main"
 optional = false
 python-versions = "*"
-version = "1.14.3"
 
 [package.dependencies]
 pycparser = "*"
 
 [[package]]
-category = "main"
-description = "Composable command line interface toolkit"
 name = "click"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 version = "7.1.2"
-
-[[package]]
+description = "Composable command line interface toolkit"
 category = "main"
-description = "Cross-platform colored terminal text."
-marker = "sys_platform == \"win32\" or platform_system == \"Windows\""
-name = "colorama"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-version = "0.4.3"
 
 [[package]]
+name = "colorama"
+version = "0.4.3"
+description = "Cross-platform colored terminal text."
 category = "main"
-description = "cryptography is a package which provides cryptographic recipes and primitives to Python developers."
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+
+[[package]]
 name = "cryptography"
+version = "3.2"
+description = "cryptography is a package which provides cryptographic recipes and primitives to Python developers."
+category = "main"
 optional = false
 python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*"
-version = "3.1"
 
 [package.dependencies]
 cffi = ">=1.8,<1.11.3 || >1.11.3"
 six = ">=1.4.1"
 
 [package.extras]
-docs = ["sphinx (>=1.6.5,<1.8.0 || >1.8.0,<3.1.0 || >3.1.0,<3.1.1 || >3.1.1)", "sphinx-rtd-theme"]
+docs = ["sphinx (>=1.6.5,!=1.8.0,!=3.1.0,!=3.1.1)", "sphinx-rtd-theme"]
 docstest = ["doc8", "pyenchant (>=1.6.11)", "twine (>=1.12.0)", "sphinxcontrib-spelling (>=4.0.1)"]
 pep8test = ["black", "flake8", "flake8-import-order", "pep8-naming"]
 ssh = ["bcrypt (>=3.1.5)"]
-test = ["pytest (>=3.6.0,<3.9.0 || >3.9.0,<3.9.1 || >3.9.1,<3.9.2 || >3.9.2)", "pretend", "iso8601", "pytz", "hypothesis (>=1.11.4,<3.79.2 || >3.79.2)"]
+test = ["pytest (>=3.6.0,!=3.9.0,!=3.9.1,!=3.9.2)", "pretend", "iso8601", "pytz", "hypothesis (>=1.11.4,!=3.79.2)"]
 
 [[package]]
-category = "main"
-description = "Use Database URLs in your Django Application."
 name = "dj-database-url"
+version = "0.5.0"
+description = "Use Database URLs in your Django Application."
+category = "main"
 optional = false
 python-versions = "*"
-version = "0.5.0"
 
 [[package]]
-category = "main"
-description = "A high-level Python Web framework that encourages rapid development and clean, pragmatic design."
 name = "django"
+version = "3.1.1"
+description = "A high-level Python Web framework that encourages rapid development and clean, pragmatic design."
+category = "main"
 optional = false
 python-versions = ">=3.6"
-version = "3.1.1"
 
 [package.dependencies]
 asgiref = ">=3.2.10,<3.3.0"
@@ -114,68 +113,65 @@ argon2 = ["argon2-cffi (>=16.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
-category = "main"
-description = "Best way to have Django DRY forms"
 name = "django-crispy-forms"
+version = "1.9.2"
+description = "Best way to have Django DRY forms"
+category = "main"
 optional = false
 python-versions = ">=3.5"
-version = "1.9.2"
 
 [[package]]
-category = "main"
-description = "Django model mixins and utilities"
 name = "django-model-utils"
+version = "4.0.0"
+description = "Django model mixins and utilities"
+category = "main"
 optional = false
 python-versions = "*"
-version = "4.0.0"
 
 [package.dependencies]
 Django = ">=2.0.1"
 
 [[package]]
-category = "main"
-description = "Full featured redis cache backend for Django."
 name = "django-redis"
+version = "4.12.1"
+description = "Full featured redis cache backend for Django."
+category = "main"
 optional = false
 python-versions = ">=3.5"
-version = "4.12.1"
 
 [package.dependencies]
 Django = ">=2.2"
 redis = ">=3.0.0"
 
 [[package]]
-category = "dev"
-description = "Git Object Database"
 name = "gitdb"
+version = "4.0.5"
+description = "Git Object Database"
+category = "dev"
 optional = false
 python-versions = ">=3.4"
-version = "4.0.5"
 
 [package.dependencies]
 smmap = ">=3.0.1,<4"
 
 [[package]]
-category = "dev"
-description = "Python Git Library"
 name = "gitpython"
+version = "3.1.9"
+description = "Python Git Library"
+category = "dev"
 optional = false
 python-versions = ">=3.4"
-version = "3.1.9"
 
 [package.dependencies]
 gitdb = ">=4.0.1,<5"
 
 [[package]]
-category = "main"
-description = "WSGI HTTP Server for UNIX"
 name = "gunicorn"
+version = "20.0.4"
+description = "WSGI HTTP Server for UNIX"
+category = "main"
 optional = false
 python-versions = ">=3.4"
-version = "20.0.4"
-
-[package.dependencies]
-setuptools = ">=3.0"
 
 [package.extras]
 eventlet = ["eventlet (>=0.9.7)"]
@@ -184,237 +180,214 @@ setproctitle = ["setproctitle"]
 tornado = ["tornado (>=0.2)"]
 
 [[package]]
-category = "main"
-description = "A pure-Python, bring-your-own-I/O implementation of HTTP/1.1"
 name = "h11"
+version = "0.9.0"
+description = "A pure-Python, bring-your-own-I/O implementation of HTTP/1.1"
+category = "main"
 optional = false
 python-versions = "*"
-version = "0.9.0"
 
 [[package]]
-category = "main"
-description = "A collection of framework independent HTTP protocol utils."
-marker = "sys_platform != \"win32\" and sys_platform != \"cygwin\" and platform_python_implementation != \"PyPy\""
 name = "httptools"
+version = "0.1.1"
+description = "A collection of framework independent HTTP protocol utils."
+category = "main"
 optional = false
 python-versions = "*"
-version = "0.1.1"
 
 [package.extras]
-test = ["Cython (0.29.14)"]
+test = ["Cython (==0.29.14)"]
 
 [[package]]
-category = "dev"
-description = "Python Build Reasonableness"
 name = "pbr"
+version = "5.5.0"
+description = "Python Build Reasonableness"
+category = "dev"
 optional = false
 python-versions = ">=2.6"
-version = "5.5.0"
 
 [[package]]
-category = "main"
-description = "psycopg2 - Python-PostgreSQL Database Adapter"
 name = "psycopg2-binary"
+version = "2.8.6"
+description = "psycopg2 - Python-PostgreSQL Database Adapter"
+category = "main"
 optional = false
 python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*"
-version = "2.8.6"
 
 [[package]]
-category = "main"
-description = "C parser in Python"
 name = "pycparser"
+version = "2.20"
+description = "C parser in Python"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "2.20"
 
 [[package]]
-category = "main"
-description = "Add .env support to your django/flask apps in development and deployments"
 name = "python-dotenv"
+version = "0.14.0"
+description = "Add .env support to your django/flask apps in development and deployments"
+category = "main"
 optional = false
 python-versions = "*"
-version = "0.14.0"
 
 [package.extras]
 cli = ["click (>=5.0)"]
 
 [[package]]
-category = "main"
-description = "World timezone definitions, modern and historical"
 name = "pytz"
+version = "2020.1"
+description = "World timezone definitions, modern and historical"
+category = "main"
 optional = false
 python-versions = "*"
-version = "2020.1"
 
 [[package]]
-category = "main"
-description = "YAML parser and emitter for Python"
 name = "pyyaml"
+version = "5.3.1"
+description = "YAML parser and emitter for Python"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-version = "5.3.1"
 
 [[package]]
-category = "main"
-description = "Python client for Redis key-value store"
 name = "redis"
+version = "3.5.3"
+description = "Python client for Redis key-value store"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-version = "3.5.3"
 
 [package.extras]
 hiredis = ["hiredis (>=0.1.3)"]
 
 [[package]]
-category = "dev"
-description = "Python bindings for Selenium"
 name = "selenium"
+version = "3.141.0"
+description = "Python bindings for Selenium"
+category = "dev"
 optional = false
 python-versions = "*"
-version = "3.141.0"
 
 [package.dependencies]
 urllib3 = "*"
 
 [[package]]
-category = "main"
-description = "Python 2 and 3 compatibility utilities"
 name = "six"
+version = "1.15.0"
+description = "Python 2 and 3 compatibility utilities"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
-version = "1.15.0"
 
 [[package]]
-category = "dev"
-description = "A pure Python implementation of a sliding window memory map manager"
 name = "smmap"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "3.0.4"
-
-[[package]]
-category = "main"
-description = "Non-validating SQL parser"
-name = "sqlparse"
+description = "A pure Python implementation of a sliding window memory map manager"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "0.3.1"
 
 [[package]]
-category = "dev"
-description = "Manage dynamic plugins for Python applications"
+name = "sqlparse"
+version = "0.3.1"
+description = "Non-validating SQL parser"
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+
+[[package]]
 name = "stevedore"
+version = "3.2.2"
+description = "Manage dynamic plugins for Python applications"
+category = "dev"
 optional = false
 python-versions = ">=3.6"
-version = "3.2.2"
 
 [package.dependencies]
 pbr = ">=2.0.0,<2.1.0 || >2.1.0"
 
 [[package]]
-category = "dev"
-description = "HTTP library with thread-safe connection pooling, file post, and more."
 name = "urllib3"
+version = "1.25.10"
+description = "HTTP library with thread-safe connection pooling, file post, and more."
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4"
-version = "1.25.10"
 
 [package.extras]
 brotli = ["brotlipy (>=0.6.0)"]
 secure = ["certifi", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "pyOpenSSL (>=0.14)", "ipaddress"]
-socks = ["PySocks (>=1.5.6,<1.5.7 || >1.5.7,<2.0)"]
+socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
-category = "main"
-description = "The lightning-fast ASGI server."
 name = "uvicorn"
+version = "0.12.1"
+description = "The lightning-fast ASGI server."
+category = "main"
 optional = false
 python-versions = "*"
-version = "0.12.1"
 
 [package.dependencies]
 click = ">=7.0.0,<8.0.0"
+colorama = {version = ">=0.4", optional = true, markers = "sys_platform == \"win32\" and extra == \"standard\""}
 h11 = ">=0.8"
-
-[package.dependencies.PyYAML]
-optional = true
-version = ">=5.1"
-
-[package.dependencies.colorama]
-optional = true
-version = ">=0.4"
-
-[package.dependencies.httptools]
-optional = true
-version = ">=0.1.0,<0.2.0"
-
-[package.dependencies.python-dotenv]
-optional = true
-version = ">=0.13"
-
-[package.dependencies.uvloop]
-optional = true
-version = ">=0.14.0"
-
-[package.dependencies.watchgod]
-optional = true
-version = ">=0.6,<0.7"
-
-[package.dependencies.websockets]
-optional = true
-version = ">=8.0.0,<9.0.0"
+httptools = {version = ">=0.1.0,<0.2.0", optional = true, markers = "sys_platform != \"win32\" and sys_platform != \"cygwin\" and platform_python_implementation != \"PyPy\" and extra == \"standard\""}
+python-dotenv = {version = ">=0.13", optional = true, markers = "extra == \"standard\""}
+PyYAML = {version = ">=5.1", optional = true, markers = "extra == \"standard\""}
+uvloop = {version = ">=0.14.0", optional = true, markers = "sys_platform != \"win32\" and sys_platform != \"cygwin\" and platform_python_implementation != \"PyPy\" and extra == \"standard\""}
+watchgod = {version = ">=0.6,<0.7", optional = true, markers = "extra == \"standard\""}
+websockets = {version = ">=8.0.0,<9.0.0", optional = true, markers = "extra == \"standard\""}
 
 [package.extras]
 standard = ["websockets (>=8.0.0,<9.0.0)", "watchgod (>=0.6,<0.7)", "python-dotenv (>=0.13)", "PyYAML (>=5.1)", "httptools (>=0.1.0,<0.2.0)", "uvloop (>=0.14.0)", "colorama (>=0.4)"]
 
 [[package]]
-category = "main"
-description = "Fast implementation of asyncio event loop on top of libuv"
-marker = "sys_platform != \"win32\" and sys_platform != \"cygwin\" and platform_python_implementation != \"PyPy\""
 name = "uvloop"
+version = "0.14.0"
+description = "Fast implementation of asyncio event loop on top of libuv"
+category = "main"
 optional = false
 python-versions = "*"
-version = "0.14.0"
 
 [[package]]
-category = "main"
-description = "Simple, modern file watching and code reload in python."
 name = "watchgod"
+version = "0.6"
+description = "Simple, modern file watching and code reload in python."
+category = "main"
 optional = false
 python-versions = ">=3.5"
-version = "0.6"
 
 [[package]]
-category = "main"
-description = "An implementation of the WebSocket Protocol (RFC 6455 & 7692)"
 name = "websockets"
+version = "8.1"
+description = "An implementation of the WebSocket Protocol (RFC 6455 & 7692)"
+category = "main"
 optional = false
 python-versions = ">=3.6.1"
-version = "8.1"
 
 [[package]]
-category = "main"
-description = "Radically simplified static file serving for WSGI applications"
 name = "whitenoise"
+version = "5.2.0"
+description = "Radically simplified static file serving for WSGI applications"
+category = "main"
 optional = false
 python-versions = ">=3.5, <4"
-version = "5.2.0"
 
 [package.extras]
 brotli = ["brotli"]
 
 [[package]]
-category = "dev"
-description = "A formatter for Python code."
 name = "yapf"
+version = "0.30.0"
+description = "A formatter for Python code."
+category = "dev"
 optional = false
 python-versions = "*"
-version = "0.30.0"
 
 [metadata]
-content-hash = "f2636eec2e32eb835dbd7683f5c8ca433dda2304b64b1f7df6fe3d6b43a6694e"
-lock-version = "1.0"
+lock-version = "1.1"
 python-versions = "^3.8"
+content-hash = "6f6f11af9e2a00dabbea7a65f54ffb397662c39be9ed2a0196239d628ca57af1"
 
 [metadata.files]
 argon2-cffi = [
@@ -490,28 +463,28 @@ colorama = [
     {file = "colorama-0.4.3.tar.gz", hash = "sha256:e96da0d330793e2cb9485e9ddfd918d456036c7149416295932478192f4436a1"},
 ]
 cryptography = [
-    {file = "cryptography-3.1-cp27-cp27m-macosx_10_10_x86_64.whl", hash = "sha256:969ae512a250f869c1738ca63be843488ff5cc031987d302c1f59c7dbe1b225f"},
-    {file = "cryptography-3.1-cp27-cp27m-manylinux1_x86_64.whl", hash = "sha256:b45ab1c6ece7c471f01c56f5d19818ca797c34541f0b2351635a5c9fe09ac2e0"},
-    {file = "cryptography-3.1-cp27-cp27m-manylinux2010_x86_64.whl", hash = "sha256:247df238bc05c7d2e934a761243bfdc67db03f339948b1e2e80c75d41fc7cc36"},
-    {file = "cryptography-3.1-cp27-cp27m-win32.whl", hash = "sha256:10c9775a3f31610cf6b694d1fe598f2183441de81cedcf1814451ae53d71b13a"},
-    {file = "cryptography-3.1-cp27-cp27m-win_amd64.whl", hash = "sha256:9f734423eb9c2ea85000aa2476e0d7a58e021bc34f0a373ac52a5454cd52f791"},
-    {file = "cryptography-3.1-cp27-cp27mu-manylinux1_x86_64.whl", hash = "sha256:e7563eb7bc5c7e75a213281715155248cceba88b11cb4b22957ad45b85903761"},
-    {file = "cryptography-3.1-cp27-cp27mu-manylinux2010_x86_64.whl", hash = "sha256:94191501e4b4009642be21dde2a78bd3c2701a81ee57d3d3d02f1d99f8b64a9e"},
-    {file = "cryptography-3.1-cp35-abi3-macosx_10_10_x86_64.whl", hash = "sha256:dc3f437ca6353979aace181f1b790f0fc79e446235b14306241633ab7d61b8f8"},
-    {file = "cryptography-3.1-cp35-abi3-manylinux1_x86_64.whl", hash = "sha256:725875681afe50b41aee7fdd629cedbc4720bab350142b12c55c0a4d17c7416c"},
-    {file = "cryptography-3.1-cp35-abi3-manylinux2010_x86_64.whl", hash = "sha256:321761d55fb7cb256b771ee4ed78e69486a7336be9143b90c52be59d7657f50f"},
-    {file = "cryptography-3.1-cp35-abi3-manylinux2014_aarch64.whl", hash = "sha256:2a27615c965173c4c88f2961cf18115c08fedfb8bdc121347f26e8458dc6d237"},
-    {file = "cryptography-3.1-cp35-cp35m-win32.whl", hash = "sha256:e7dad66a9e5684a40f270bd4aee1906878193ae50a4831922e454a2a457f1716"},
-    {file = "cryptography-3.1-cp35-cp35m-win_amd64.whl", hash = "sha256:4005b38cd86fc51c955db40b0f0e52ff65340874495af72efabb1bb8ca881695"},
-    {file = "cryptography-3.1-cp36-abi3-win32.whl", hash = "sha256:cc6096c86ec0de26e2263c228fb25ee01c3ff1346d3cfc219d67d49f303585af"},
-    {file = "cryptography-3.1-cp36-abi3-win_amd64.whl", hash = "sha256:2e26223ac636ca216e855748e7d435a1bf846809ed12ed898179587d0cf74618"},
-    {file = "cryptography-3.1-cp36-cp36m-win32.whl", hash = "sha256:7a63e97355f3cd77c94bd98c59cb85fe0efd76ea7ef904c9b0316b5bbfde6ed1"},
-    {file = "cryptography-3.1-cp36-cp36m-win_amd64.whl", hash = "sha256:4b9e96543d0784acebb70991ebc2dbd99aa287f6217546bb993df22dd361d41c"},
-    {file = "cryptography-3.1-cp37-cp37m-win32.whl", hash = "sha256:eb80a288e3cfc08f679f95da72d2ef90cb74f6d8a8ba69d2f215c5e110b2ca32"},
-    {file = "cryptography-3.1-cp37-cp37m-win_amd64.whl", hash = "sha256:180c9f855a8ea280e72a5d61cf05681b230c2dce804c48e9b2983f491ecc44ed"},
-    {file = "cryptography-3.1-cp38-cp38-win32.whl", hash = "sha256:fa7fbcc40e2210aca26c7ac8a39467eae444d90a2c346cbcffd9133a166bcc67"},
-    {file = "cryptography-3.1-cp38-cp38-win_amd64.whl", hash = "sha256:548b0818e88792318dc137d8b1ec82a0ab0af96c7f0603a00bb94f896fbf5e10"},
-    {file = "cryptography-3.1.tar.gz", hash = "sha256:26409a473cc6278e4c90f782cd5968ebad04d3911ed1c402fc86908c17633e08"},
+    {file = "cryptography-3.2-cp27-cp27m-macosx_10_10_x86_64.whl", hash = "sha256:9a8580c9afcdcddabbd064c0a74f337af74ff4529cdf3a12fa2e9782d677a2e5"},
+    {file = "cryptography-3.2-cp27-cp27m-manylinux1_x86_64.whl", hash = "sha256:7ef41304bf978f33cfb6f43ca13bb0faac0c99cda33693aa20ad4f5e34e8cb8f"},
+    {file = "cryptography-3.2-cp27-cp27m-manylinux2010_x86_64.whl", hash = "sha256:87c2fffd61e934bc0e2c927c3764c20b22d7f5f7f812ee1a477de4c89b044ca6"},
+    {file = "cryptography-3.2-cp27-cp27m-win32.whl", hash = "sha256:6e8a3c7c45101a7eeee93102500e1b08f2307c717ff553fcb3c1127efc9b6917"},
+    {file = "cryptography-3.2-cp27-cp27m-win_amd64.whl", hash = "sha256:52a47e60953679eea0b4d490ca3c241fb1b166a7b161847ef4667dfd49e7699d"},
+    {file = "cryptography-3.2-cp27-cp27mu-manylinux1_x86_64.whl", hash = "sha256:6a8f64ed096d13f92d1f601a92d9fd1f1025dc73a2ca1ced46dcf5e0d4930943"},
+    {file = "cryptography-3.2-cp27-cp27mu-manylinux2010_x86_64.whl", hash = "sha256:3e17d02941c0f169c5b877597ca8be895fca0e5e3eb882526a74aa4804380a98"},
+    {file = "cryptography-3.2-cp35-abi3-macosx_10_10_x86_64.whl", hash = "sha256:d1cbc3426e6150583b22b517ef3720036d7e3152d428c864ff0f3fcad2b97591"},
+    {file = "cryptography-3.2-cp35-abi3-manylinux1_x86_64.whl", hash = "sha256:22f8251f68953553af4f9c11ec5f191198bc96cff9f0ac5dd5ff94daede0ee6d"},
+    {file = "cryptography-3.2-cp35-abi3-manylinux2010_x86_64.whl", hash = "sha256:f2aa3f8ba9e2e3fd49bd3de743b976ab192fbf0eb0348cebde5d2a9de0090a9f"},
+    {file = "cryptography-3.2-cp35-abi3-manylinux2014_aarch64.whl", hash = "sha256:9a07e6d255053674506091d63ab4270a119e9fc83462c7ab1dbcb495b76307af"},
+    {file = "cryptography-3.2-cp35-cp35m-win32.whl", hash = "sha256:f0e3986f6cce007216b23c490f093f35ce2068f3c244051e559f647f6731b7ae"},
+    {file = "cryptography-3.2-cp35-cp35m-win_amd64.whl", hash = "sha256:284e275e3c099a80831f9898fb5c9559120d27675c3521278faba54e584a7832"},
+    {file = "cryptography-3.2-cp36-abi3-win32.whl", hash = "sha256:f01c9116bfb3ad2831e125a73dcd957d173d6ddca7701528eff1e7d97972872c"},
+    {file = "cryptography-3.2-cp36-abi3-win_amd64.whl", hash = "sha256:bd80bc156d3729b38cb227a5a76532aef693b7ac9e395eea8063ee50ceed46a5"},
+    {file = "cryptography-3.2-cp36-cp36m-win32.whl", hash = "sha256:8f0fd8b0751d75c4483c534b209e39e918f0d14232c0d8a2a76e687f64ced831"},
+    {file = "cryptography-3.2-cp36-cp36m-win_amd64.whl", hash = "sha256:8a0866891326d3badb17c5fd3e02c926b635e8923fa271b4813cd4d972a57ff3"},
+    {file = "cryptography-3.2-cp37-cp37m-win32.whl", hash = "sha256:57b8c1ed13b8aa386cabbfde3be175d7b155682470b0e259fecfe53850967f8a"},
+    {file = "cryptography-3.2-cp37-cp37m-win_amd64.whl", hash = "sha256:88069392cd9a1e68d2cfd5c3a2b0d72a44ef3b24b8977a4f7956e9e3c4c9477a"},
+    {file = "cryptography-3.2-cp38-cp38-win32.whl", hash = "sha256:fb70a4cedd69dc52396ee114416a3656e011fb0311fca55eb55c7be6ed9c8aef"},
+    {file = "cryptography-3.2-cp38-cp38-win_amd64.whl", hash = "sha256:e15ac84dcdb89f92424cbaca4b0b34e211e7ce3ee7b0ec0e4f3c55cee65fae5a"},
+    {file = "cryptography-3.2.tar.gz", hash = "sha256:e4789b84f8dedf190148441f7c5bfe7244782d9cbb194a36e17b91e7d3e1cca9"},
 ]
 dj-database-url = [
     {file = "dj-database-url-0.5.0.tar.gz", hash = "sha256:4aeaeb1f573c74835b0686a2b46b85990571159ffc21aa57ecd4d1e1cb334163"},
@@ -598,6 +571,7 @@ psycopg2-binary = [
     {file = "psycopg2_binary-2.8.6-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:2dac98e85565d5688e8ab7bdea5446674a83a3945a8f416ad0110018d1501b94"},
     {file = "psycopg2_binary-2.8.6-cp38-cp38-win32.whl", hash = "sha256:bd1be66dde2b82f80afb9459fc618216753f67109b859a361cf7def5c7968729"},
     {file = "psycopg2_binary-2.8.6-cp38-cp38-win_amd64.whl", hash = "sha256:8cd0fb36c7412996859cb4606a35969dd01f4ea34d9812a141cd920c3b18be77"},
+    {file = "psycopg2_binary-2.8.6-cp39-cp39-macosx_10_9_x86_64.macosx_10_9_intel.macosx_10_10_intel.macosx_10_10_x86_64.whl", hash = "sha256:89705f45ce07b2dfa806ee84439ec67c5d9a0ef20154e0e475e2b2ed392a5b83"},
     {file = "psycopg2_binary-2.8.6-cp39-cp39-manylinux1_i686.whl", hash = "sha256:42ec1035841b389e8cc3692277a0bd81cdfe0b65d575a2c8862cec7a80e62e52"},
     {file = "psycopg2_binary-2.8.6-cp39-cp39-manylinux1_x86_64.whl", hash = "sha256:7312e931b90fe14f925729cde58022f5d034241918a5c4f9797cac62f6b3a9dd"},
 ]
