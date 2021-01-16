@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.users',
     'apps.words',
     'crispy_forms',
 ]
@@ -75,6 +76,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'recollection.wsgi.application'
+
+# Custom user model
+AUTH_USER_MODEL = "users.CustomUser"
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
