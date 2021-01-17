@@ -20,5 +20,6 @@ from . import admin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('users/', include('apps.users.urls', namespace='users')),
     path('words/', include('apps.words.urls', namespace='words')),
 ]

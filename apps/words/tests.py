@@ -15,9 +15,7 @@ class TestWords(TestCase):
     def setUpClass(cls):
         super().setUpClass()
         User = get_user_model()
-        User.objects.create(username='testUser',
-                            is_staff=True,
-                            is_superuser=True)
+        User.objects.create_superuser('test@test.com', "12345")
 
     @classmethod
     def tearDownClass(cls):
@@ -94,7 +92,7 @@ class TestWords(TestCase):
     @override_settings(STATICFILES_STORAGE=None)
     def test_add_jp_word_admin(self):
         User = get_user_model()
-        user = User.objects.get(username='testUser')
+        user = User.objects.get(email='test@test.com')
         add_dict = {'word': '今晩は', 'owner': user.id}
         self.client.force_login(user)
         post = self.client.post(reverse('admin:words_japaneseword_add'),
