@@ -1,5 +1,3 @@
-import time
-
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.urls import reverse
 from selenium.webdriver.firefox.webdriver import WebDriver
@@ -7,8 +5,8 @@ from selenium.webdriver.firefox.webdriver import WebDriver
 from apps.users.models import CustomUser
 
 # This is used to debug tests
-# import logging
-# logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s -%(filename)s:%(lineno)d - %(message)s')
+import logging
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s -%(filename)s:%(lineno)d - %(message)s')
 
 
 class ResetPasswordTests(StaticLiveServerTestCase):
