@@ -75,8 +75,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'recollection.wsgi.application'
-
 # Custom user model
 AUTH_USER_MODEL = "users.CustomUser"
 
@@ -110,12 +108,24 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.BCryptPasswordHasher',
 ]
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'recollection.db'),
+try:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ['POSTGRES_DB'],
+            'USER': os.environ['POSTGRES_USER'],
+            'PASSWORD': os.environ['POSTGRES_PASSWORD'],
+            'HOST': 'db',
+            'PORT': '5432',
+        }
     }
-}
+except KeyError:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'recollection.db'),
+        }
+    }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
